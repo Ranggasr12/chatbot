@@ -6,7 +6,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: '🤖 **Selamat Datang di AI Chatbot!**\n\nSaya siap membantu informasi tentang:\n\n🎓 Jurusan & Fakultas\n💰 Beasiswa\n🏠 Asrama\n🚌 Transportasi\n📚 Fasilitas\n\nPilih topik di bawah atau tanyakan langsung!',
+      text: '🤖 **Selamat Datang di Chatbot Interaktif!**\n\nSaya siap membantu Anda dengan informasi kampus.',
       sender: 'bot',
       timestamp: new Date().toISOString()
     }
@@ -15,53 +15,60 @@ export default function Home() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
+  const inputRef = useRef(null)
 
   // Quick starters
   const quickStarters = [
-    { text: '🎓 Jurusan', value: 'Jurusan apa saja yang ada?' },
-    { text: '💰 Beasiswa', value: 'Info beasiswa untuk mahasiswa' },
-    { text: '🏠 Asrama', value: 'Info asrama dan biayanya' },
-    { text: '🚌 Transportasi', value: 'Jadwal shuttle bus kampus' },
-    { text: '📚 Fasilitas', value: 'Fasilitas apa yang tersedia?' },
-    { text: '🤖 Bantuan', value: 'Halo, bisa bantu saya?' }
+    { icon: '🎓', text: 'Jurusan', value: 'Jurusan apa saja yang ada?' },
+    { icon: '💰', text: 'Beasiswa', value: 'Info beasiswa untuk mahasiswa baru' },
+    { icon: '🏠', text: 'Asrama', value: 'Info asrama dan biayanya' },
+    { icon: '🚌', text: 'Transportasi', value: 'Jadwal shuttle bus kampus' },
+    { icon: '📚', text: 'Fasilitas', value: 'Fasilitas kampus apa saja?' },
+    { icon: '💬', text: 'Bantuan', value: 'Halo, bisa bantu saya?' }
   ]
 
-  // Auto scroll
+  // Auto scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  // Simple AI responses
+  // Focus input on mount
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  // Simple AI response generator
   const getAIResponse = (message) => {
-    const msg = message.toLowerCase()
+    const msg = message.toLowerCase().trim()
     
-    if (msg.includes('jurusan') || msg.includes('fakultas')) {
-      return `🎓 **Informasi Jurusan:**\n\nUniversitas kami memiliki 12 Fakultas dengan 50+ Program Studi:\n\n• Teknik Informatika (Akreditasi A)\n• Kedokteran (Akreditasi A)\n• Manajemen (Akreditasi A)\n• Hukum (Akreditasi A)\n• Psikologi (Akreditasi A)\n\n📅 Pendaftaran: Januari-Maret 2024\n🔗 Info: pmb.univ.ac.id`
+    if (msg.includes('jurusan') || msg.includes('fakultas') || msg.includes('prodi')) {
+      return `🎓 **Informasi Jurusan:**\n\nFakultas Teknik:\n• Teknik Informatika (Akreditasi A)\n• Teknik Elektro (Akreditasi A)\n• Teknik Sipil (Akreditasi A)\n\nFakultas Kedokteran:\n• Pendidikan Dokter (Akreditasi A)\n• Farmasi (Akreditasi A)\n\nFakultas Ekonomi:\n• Manajemen (Akreditasi A)\n• Akuntansi (Akreditasi A)`
     }
     
-    if (msg.includes('beasiswa') || msg.includes('dana')) {
-      return `💰 **Program Beasiswa 2024:**\n\n• Beasiswa Prestasi (IPK ≥ 3.5)\n• KIP-Kuliah (ekonomi kurang mampu)\n• Beasiswa Perusahaan (Telkom, BCA, Mandiri)\n\n📝 Pendaftaran: 15 Januari - 15 Februari\n🔗 Info: beasiswa.univ.ac.id`
+    if (msg.includes('beasiswa') || msg.includes('dana') || msg.includes('biaya')) {
+      return `💰 **Program Beasiswa:**\n\n1. Beasiswa Prestasi (IPK ≥ 3.5)\n• Bebas UKT 100%\n• Rp 1.000.000/bulan\n\n2. KIP-Kuliah\n• Untuk mahasiswa kurang mampu\n• Full tuition + living allowance\n\n3. Beasiswa Perusahaan\n• Telkom, BCA, Mandiri, Google\n• UKT + magang berbayar`
     }
     
-    if (msg.includes('asrama') || msg.includes('kost')) {
-      return `🏠 **Asrama Mahasiswa:**\n\n• Standard: Rp 1.8 juta/semester\n• Premium: Rp 2.8 juta/semester\n• VIP: Rp 3.8 juta/semester\n\n📍 Lokasi: 5 menit dari kampus\n📞 Contact: asrama@univ.ac.id`
+    if (msg.includes('asrama') || msg.includes('kost') || msg.includes('kamar')) {
+      return `🏠 **Asrama Mahasiswa:**\n\n• Standard: Rp 1.8 juta/semester\n• Premium: Rp 2.8 juta/semester\n• VIP: Rp 3.8 juta/semester\n\nFasilitas: AC, WiFi, laundry, cleaning service`
     }
     
-    if (msg.includes('bus') || msg.includes('shuttle')) {
-      return `🚌 **Shuttle Bus Kampus:**\n\n⏰ Jadwal:\n• Senin-Jumat: 06.30-21.00 (setiap 15-20 menit)\n• Sabtu: 07.00-18.00 (setiap 30 menit)\n• Minggu: 08.00-16.00 (setiap 45 menit)\n\n🗺️ Rute: Kampus ↔ Stasiun ↔ Mall`
+    if (msg.includes('bus') || msg.includes('shuttle') || msg.includes('transportasi')) {
+      return `🚌 **Shuttle Bus Kampus:**\n\nJadwal (Senin-Jumat):\n• 06:30 - 09:00: Setiap 15 menit\n• 09:00 - 16:00: Setiap 20 menit\n• 16:00 - 21:00: Setiap 15 menit\n\nRute: Kampus ↔ Stasiun ↔ Mall ↔ Apartemen`
     }
     
-    if (msg.includes('fasilitas') || msg.includes('lab')) {
-      return `🏛️ **Fasilitas Kampus:**\n\n• Perpustakaan 24/7\n• Lab komputer modern\n• Gym & lapangan olahraga\n• Kantin & coffee shop\n• Klinik kesehatan\n\n📍 Semua fasilitas tersedia untuk mahasiswa`
+    if (msg.includes('fasilitas') || msg.includes('lab') || msg.includes('perpustakaan')) {
+      return `🏛️ **Fasilitas Kampus:**\n\n• Perpustakaan Digital 24/7\n• Lab Komputer & Bahasa\n• Gym & Fitness Center\n• Kantin & Coffee Shop\n• Studio Multimedia\n• Klinik Kesehatan`
     }
     
-    if (msg.includes('halo') || msg.includes('hi') || msg.includes('hai')) {
-      return `🤖 **Halo! Selamat datang di AI Chatbot**\n\nSaya siap membantu dengan informasi kampus. Coba tanyakan tentang:\n\n• Jurusan & fakultas\n• Beasiswa & biaya\n• Asrama & tempat tinggal\n• Transportasi kampus\n• Fasilitas yang tersedia\n\n💡 Tips: Gunakan kata kunci spesifik untuk informasi detail! 😊`
+    if (msg.includes('halo') || msg.includes('hi') || msg.includes('hai') || msg.includes('hello')) {
+      return `🤖 **Halo! Selamat datang!**\n\nSaya AI Chatbot siap membantu dengan:\n\n🎓 Informasi jurusan\n💰 Beasiswa & biaya\n🏠 Asrama & akomodasi\n🚌 Transportasi kampus\n📚 Fasilitas kampus\n\nApa yang ingin Anda tanyakan? 😊`
     }
     
-    return `🤔 **Saya ingin membantu Anda!**\n\nCoba tanyakan tentang:\n\n• "Jurusan teknik apa saja?"\n• "Info beasiswa prestasi"\n• "Biaya asrama per semester"\n• "Jadwal shuttle bus"\n• "Fasilitas perpustakaan"\n\nAtau pilih topik dari buttons di atas! 😊`
+    return `🤔 **Saya ingin membantu Anda lebih baik!**\n\nCoba tanyakan tentang:\n\n• "Jurusan teknik apa saja?"\n• "Info beasiswa untuk IPK 3.5"\n• "Biaya asrama per semester"\n• "Jadwal shuttle jam 7 pagi"\n• "Fasilitas perpustakaan"\n\nAtau pilih topik dari tombol di atas! 💡`
   }
 
+  // Send message function
   const sendMessage = () => {
     if (!input.trim() || isLoading) return
 
@@ -78,7 +85,7 @@ export default function Home() {
     setInput('')
     setIsLoading(true)
 
-    // Simulate AI thinking
+    // Simulate AI processing
     setTimeout(() => {
       const aiResponse = getAIResponse(userInput)
       
@@ -91,9 +98,10 @@ export default function Home() {
       
       setMessages(prev => [...prev, botMessage])
       setIsLoading(false)
-    }, 1000)
+    }, 800)
   }
 
+  // Handle Enter key
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -101,13 +109,7 @@ export default function Home() {
     }
   }
 
-  const handleQuickStarter = (value) => {
-    setInput(value)
-    setTimeout(() => {
-      sendMessage()
-    }, 100)
-  }
-
+  // Clear chat
   const clearChat = () => {
     if (window.confirm('Hapus semua percakapan?')) {
       setMessages([
@@ -121,12 +123,35 @@ export default function Home() {
     }
   }
 
+  // Handle quick starter click
+  const handleQuickStarter = (value) => {
+    setInput(value)
+    setTimeout(() => {
+      sendMessage()
+    }, 100)
+  }
+
+  // Format time
   const formatTime = (timestamp) => {
-    return new Date(timestamp).toLocaleTimeString('id-ID', { 
+    const date = new Date(timestamp)
+    return date.toLocaleTimeString('id-ID', { 
       hour: '2-digit', 
       minute: '2-digit' 
     })
   }
+
+  // Icons as SVG components
+  const UserIcon = () => (
+    <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+    </svg>
+  )
+
+  const BotIcon = () => (
+    <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    </svg>
+  )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 p-4">
@@ -140,8 +165,8 @@ export default function Home() {
                 <div className="text-2xl text-white">🤖</div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-800">AI Chatbot Akademik</h1>
-                <p className="text-gray-600">Powered by AI • Real-time Responses</p>
+                <h1 className="text-2xl font-bold text-gray-800">AI Chatbot Interaktif</h1>
+                <p className="text-gray-600">Percakapan Cerdas • Respons Real-time</p>
               </div>
             </div>
             
@@ -174,8 +199,9 @@ export default function Home() {
                   disabled={isLoading}
                   className="flex flex-col items-center p-3 bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50 rounded-lg transition-all disabled:opacity-50 text-center"
                 >
-                  <div className="text-lg mb-1">{starter.text.split(' ')[0]}</div>
-                  <div className="text-xs text-gray-600">Click to send</div>
+                  <div className="text-2xl mb-1">{starter.icon}</div>
+                  <div className="text-sm font-medium text-gray-700">{starter.text}</div>
+                  <div className="text-xs text-gray-500 mt-1">Click to send</div>
                 </button>
               ))}
             </div>
@@ -200,15 +226,7 @@ export default function Home() {
                     {/* Message Header */}
                     <div className="flex items-center gap-2 mb-2">
                       <div className={`p-1.5 rounded-full ${msg.sender === 'user' ? 'bg-blue-400' : 'bg-blue-100'}`}>
-                        {msg.sender === 'user' ? (
-                          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                        ) : (
-                          <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                          </svg>
-                        )}
+                        {msg.sender === 'user' ? <UserIcon /> : <BotIcon />}
                       </div>
                       <div className="text-xs opacity-75">
                         {msg.sender === 'user' ? 'Anda' : 'AI Assistant'} • {formatTime(msg.timestamp)}
@@ -229,9 +247,9 @@ export default function Home() {
                   <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-none p-4 shadow-sm">
                     <div className="flex items-center gap-3">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-75"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-75"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-150"></div>
                       </div>
                       <span className="text-sm text-gray-600">AI sedang memproses...</span>
                     </div>
@@ -248,6 +266,7 @@ export default function Home() {
             <div className="flex gap-3">
               <div className="flex-1">
                 <textarea
+                  ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyPress}
@@ -258,7 +277,7 @@ export default function Home() {
                 />
                 <div className="flex justify-between items-center mt-2">
                   <div className="text-xs text-gray-500">
-                    Tekan Enter untuk mengirim
+                    Tekan Enter untuk mengirim, Shift+Enter untuk baris baru
                   </div>
                   <div className={`text-xs ${input.length > 450 ? 'text-red-500' : 'text-gray-400'}`}>
                     {input.length}/500
@@ -286,14 +305,14 @@ export default function Home() {
             
             {/* Tips */}
             <div className="mt-4 text-center text-sm text-gray-500">
-              <p>💡 Contoh: "jurusan teknik", "beasiswa prestasi", "biaya asrama", "jadwal shuttle"</p>
+              <p>💡 Contoh: "jurusan teknik", "beasiswa IPK 3.5", "biaya asrama", "jadwal shuttle jam 7"</p>
             </div>
           </div>
         </div>
         
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>© 2024 AI Chatbot Akademik • v1.0</p>
+          <p>© 2024 AI Chatbot Interaktif • v1.0</p>
         </div>
       </div>
     </div>
