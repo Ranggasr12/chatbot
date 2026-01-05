@@ -1,25 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   
-  // WAJIB untuk Netlify: Static Export
-  output: 'export',
-  
-  // WAJIB untuk Netlify
-  trailingSlash: true,
-  
-  // Nonaktifkan image optimization
-  images: {
-    unoptimized: true,
-  },
-  
-  // Nonaktifkan ESLint/TypeScript checking
+  // Nonaktifkan ESLint dan TypeScript saat build
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  
+  // Untuk Netlify
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
   }
 }
 
