@@ -2,12 +2,17 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Add this to fix Vercel routing
-  trailingSlash: false,
-  // Disable static optimization for API routes
+  images: {
+    domains: [],
+  },
+  // Important for Vercel
   experimental: {
     appDir: true,
-  }
+  },
+  // Handle errors gracefully
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
 }
 
 module.exports = nextConfig

@@ -1,34 +1,27 @@
 {
-  "name": "chatbot-simple",
+  "name": "chatbot",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "next": "^14.0.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "next": "13.5.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "lucide-react": "^0.309.0"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.3.0"
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^13.5.6"
   },
-  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
-  "main": "next.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ranggasr12/chatbot.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Ranggasr12/chatbot/issues"
-  },
-  "homepage": "https://github.com/Ranggasr12/chatbot#readme"
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
