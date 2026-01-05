@@ -2,14 +2,20 @@
 
 import { useState, useRef, useEffect } from 'react'
 
-// Konfigurasi API
-const FLASK_API_URL = 'http://localhost:5000/api/chat'
-const NEXTJS_API_URL = '/api/chat'
-const HEALTH_URL = 'http://localhost:5000/api/health'
+// 🚨 UPDATE UNTUK VERCEL: Pakai relative path
+const API_URL = '/api/chat';  // Akan mengarah ke /api/chat.py di Vercel
+const HEALTH_URL = '/api/chat'; // GET request ke endpoint yang sama
 
-// Pilih API mana yang digunakan
-const USE_PROXY = true
-const ACTIVE_API_URL = USE_PROXY ? NEXTJS_API_URL : FLASK_API_URL
+// Helper untuk getMethodDisplay (tambahkan di atas component)
+const getMethodDisplay = (method) => {
+  const methods = {
+    'ml_model': { emoji: '🤖', text: 'ML Model', color: 'bg-blue-100 text-blue-800' },
+    'rule_based': { emoji: '📝', text: 'Rule-Based', color: 'bg-green-100 text-green-800' },
+    'greeting_detection': { emoji: '👋', text: 'Greeting', color: 'bg-yellow-100 text-yellow-800' },
+    'conversation_exit': { emoji: '🚪', text: 'Exit Flow', color: 'bg-red-100 text-red-800' }
+  };
+  return methods[method] || { emoji: '❓', text: method, color: 'bg-gray-100 text-gray-800' };
+};
 
 // Topic display names
 const getTopicDisplayName = (topic) => {
@@ -69,8 +75,7 @@ export default function Home() {
   const [botInfo, setBotInfo] = useState({
     model_loaded: false,
     intents_loaded: 0,
-    model_type: null,
-    vectorizer_ready: false
+    status: 'unknown'
   })
   const messagesEndRef = useRef(null)
 
@@ -84,33 +89,55 @@ export default function Home() {
     checkApiStatus()
   }, [])
 
-  // Fungsi untuk cek koneksi API dan info bot
+  // 🚨 UPDATE: Fungsi untuk cek koneksi API (untuk Vercel)
   const checkApiStatus = async () => {
     try {
       console.log('🔍 Checking API at:', HEALTH_URL)
-      const response = await fetch(HEALTH_URL)
-      const data = await response.json()
-      console.log('✅ API Response:', data)
+      const response = await fetch(HEALTH_URL, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
       
-      if (data.success) {
+      if (response.ok) {
+        const data = await response.json()
+        console.log('✅ API Response:', data)
+        
         setApiStatus('connected')
         setBotInfo({
           model_loaded: data.model_loaded || false,
           intents_loaded: data.intents_loaded || 0,
-          model_type: data.model_type || null,
-          vectorizer_ready: data.vectorizer_ready || false
+          status: data.status || 'healthy'
         })
         
-        
+        // Tampilkan status
+        setMessages(prev => [...prev.filter(m => !m.isStatus), {
+          id: prev.length + 1,
+          text: `✅ **API Connected**\n• Status: ${data.status || 'healthy'}\n• Model: ${data.model_loaded ? '✅ Loaded' : '⚠️ Rule-based'}\n• Intents: ${data.intents_loaded || 0}\n• Service: ${data.service || 'Chatbot API'}`,
+          sender: 'system',
+          isStatus: true
+        }])
+      } else {
+        setApiStatus('disconnected')
+        setMessages(prev => [...prev.filter(m => !m.isStatus), {
+          id: prev.length + 1,
+          text: '❌ **API Health Check Failed**\n\nTidak dapat terhubung ke backend.',
+          sender: 'system',
+          isStatus: true,
+          isError: true
+        }])
       }
     } catch (error) {
       console.error('❌ API Check Failed:', error)
       setApiStatus('disconnected')
       
-      setMessages(prev => [...prev, {
+      // 🚨 UPDATE: Pesan error untuk Vercel
+      setMessages(prev => [...prev.filter(m => !m.isStatus), {
         id: prev.length + 1,
-        text: `❌ **API Connection Error**\n\n**Troubleshooting:**\n1. Pastikan Flask berjalan: \`python app.py\`\n2. Buka: http://localhost:5000/api/health\n3. Cek port 5000 tidak digunakan\n4. Restart Flask server jika perlu\n\n**Pastikan file model ada di folder trained/:**\n• model_joblib\n• vectorizer.joblib`,
+        text: `❌ **Connection Error**\n\nTidak dapat terhubung ke API.\n\n**Environment:** ${process.env.NODE_ENV || 'development'}\n**API URL:** ${API_URL}`,
         sender: 'system',
+        isStatus: true,
         isError: true
       }])
     }
@@ -133,13 +160,14 @@ export default function Home() {
     setIsLoading(true)
 
     try {
-      console.log(`📤 Using ${USE_PROXY ? 'Next.js Proxy' : 'Direct Flask'}:`, ACTIVE_API_URL)
+      console.log(`📤 Sending to:`, API_URL)
       console.log('Payload:', { message: userInput })
       
-      const response = await fetch(ACTIVE_API_URL, {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({ message: userInput }),
       })
@@ -159,6 +187,7 @@ export default function Home() {
           isInFlow: data.expecting_followup || false,
           topic: data.current_topic || null,
           model_available: data.model_available || false,
+          method: data.method || 'rule_based',
           timestamp: data.timestamp || new Date().toISOString()
         }
 
@@ -179,17 +208,10 @@ export default function Home() {
             showQuickOptions(data.current_topic, userInput.toLowerCase())
           }, 300)
         }
-        
-        // Tambahkan tips jika tidak dalam flow
-        if (!data.expecting_followup && data.intent !== 'greeting') {
-          setTimeout(() => {
-            showConversationTips(data.intent)
-          }, 500)
-        }
       } else {
         const errorMessage = {
           id: messages.length + 2,
-          text: `❌ **API Error:** ${data.error || 'Unknown error'}\n\n**Response:** ${data.response}`,
+          text: `❌ **Error:** ${data.error || 'Unknown error'}\n\n**Response:** ${data.response}`,
           sender: 'system',
           isError: true
         }
@@ -198,9 +220,10 @@ export default function Home() {
     } catch (error) {
       console.error('🚨 Network Error:', error)
       
+      // 🚨 UPDATE: Error message untuk Vercel
       const errorMessage = {
         id: messages.length + 2,
-        text: `🌐 **Network Connection Error**\n\n**Error:** ${error.message}\n\n**Solution:**\n1. Check if Flask is running\n2. Open http://localhost:5000/api/health\n3. Restart both servers\n4. Check firewall settings`,
+        text: `🌐 **Network Error**\n\n**Error:** ${error.message}\n\n**API URL:** ${API_URL}\n**Environment:** ${process.env.NODE_ENV || 'development'}\n\nPastikan API endpoint tersedia.`,
         sender: 'system',
         isError: true
       }
@@ -285,28 +308,6 @@ export default function Home() {
     }
   }
 
-  // Tampilkan tips conversation
-  const showConversationTips = (lastIntent) => {
-    const tips = {
-      'informasi_jurusan': '💡 **Tips:** Anda bisa tanya detail jurusan spesifik seperti "jurusan teknik informatika" atau "fakultas kedokteran".',
-      'beasiswa': '💡 **Tips:** Tanyakan "syarat beasiswa prestasi" atau "cara daftar KIP Kuliah" untuk informasi lebih detail.',
-      'asrama_mahasiswa': '💡 **Tips:** Tanyakan "biaya asrama per semester" atau "fasilitas kamar premium" untuk detail spesifik.',
-      'bus_schedule': '💡 **Tips:** Tanya "jadwal bus hari sabtu" atau "rute ke fakultas teknik" untuk info spesifik.',
-      'tidak_mengerti': '💡 **Tips:** Coba tanyakan dengan lebih spesifik, contoh: "beasiswa untuk mahasiswa baru" atau "jurusan di fakultas teknik".'
-    }
-    
-    const tip = tips[lastIntent] || '💡 **Tips:** Gunakan kata kunci spesifik seperti "jurusan", "beasiswa", "asrama", atau "shuttle bus" untuk hasil terbaik.'
-    
-    setTimeout(() => {
-      setMessages(prev => [...prev, {
-        id: prev.length + 1,
-        text: tip,
-        sender: 'system',
-        isTip: true
-      }])
-    }, 800)
-  }
-
   // Quick button untuk memilih option
   const selectOption = (optionValue) => {
     setInput(optionValue)
@@ -360,39 +361,58 @@ export default function Home() {
   // Debug function untuk testing
   const runDebugTest = async () => {
     console.log('🧪 Debug Info:')
-    console.log('- API URL:', ACTIVE_API_URL)
+    console.log('- API URL:', API_URL)
     console.log('- API Status:', apiStatus)
     console.log('- Bot Info:', botInfo)
     console.log('- In Conversation:', isInConversation)
     console.log('- Current Topic:', currentTopic)
     console.log('- Messages Count:', messages.length)
+    console.log('- Environment:', process.env.NODE_ENV)
     
-    // Test langsung ke Flask
+    // Test API langsung
     try {
-      const testRes = await fetch(FLASK_API_URL, {
+      const testRes = await fetch(API_URL, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({message: 'test jurusan teknik'})
       })
       const testData = await testRes.json()
-      console.log('Flask Direct Test:', testData)
+      console.log('API Test Result:', testData)
       
       // Tampilkan hasil
       setMessages(prev => [...prev, {
         id: prev.length + 1,
-        text: `🧪 **Debug Test Result**\n\n• Success: ${testData.success}\n• Intent: ${testData.intent}\n• Method: ${testData.method}\n• Confidence: ${(testData.confidence * 100).toFixed(1)}%\n• ML Available: ${testData.model_available ? 'Yes' : 'No'}\n• In Flow: ${testData.expecting_followup ? 'Yes' : 'No'}`,
+        text: `🧪 **Debug Test Result**\n\n• Success: ${testData.success}\n• Intent: ${testData.intent}\n• Method: ${testData.method || 'N/A'}\n• Confidence: ${testData.confidence ? (testData.confidence * 100).toFixed(1) : 0}%\n• ML Available: ${testData.model_available ? 'Yes' : 'No'}\n• In Flow: ${testData.expecting_followup ? 'Yes' : 'No'}`,
         sender: 'system',
         isSystem: true
       }])
     } catch (e) {
-      console.error('Flask Test Error:', e)
+      console.error('API Test Error:', e)
       setMessages(prev => [...prev, {
         id: prev.length + 1,
-        text: `❌ **Debug Test Failed**\n\nError: ${e.message}\n\nCheck Flask connection.`,
+        text: `❌ **Debug Test Failed**\n\nError: ${e.message}\n\nCheck API connection.`,
         sender: 'system',
         isError: true
       }])
     }
+  }
+
+  // Quick starter handler
+  const handleQuickStarter = (value) => {
+    setInput(value)
+    // Auto focus dan send setelah delay
+    setTimeout(() => {
+      const textarea = document.querySelector('textarea')
+      if (textarea) {
+        textarea.focus()
+        // Auto send setelah 200ms
+        setTimeout(() => {
+          if (input === value) { // Pastikan input belum berubah
+            sendMessage()
+          }
+        }, 200)
+      }
+    }, 100)
   }
 
   return (
@@ -407,12 +427,37 @@ export default function Home() {
                   <span className="text-2xl text-white">🤖</span>
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-800">Chatbot</h1>
+                  <h1 className="text-3xl font-bold text-gray-800">Chatbot Akademik</h1>
+                  <p className="text-gray-600 mt-1">Vercel Edge Functions • Python API</p>
                 </div>
               </div>
               
               {/* System Info */}
-            
+              <div className="mt-4 flex flex-wrap gap-2">
+                <div className="flex items-center bg-gray-50 px-3 py-1.5 rounded-lg">
+                  <div className={`w-2 h-2 rounded-full mr-2 ${getStatusColor()}`}></div>
+                  <span className="text-sm text-gray-600">
+                    {apiStatus === 'connected' ? 'API Connected' : 
+                     apiStatus === 'disconnected' ? 'API Disconnected' : 'Checking...'}
+                  </span>
+                </div>
+                
+                {botInfo.model_loaded && (
+                  <div className="flex items-center bg-green-50 px-3 py-1.5 rounded-lg">
+                    <span className="text-sm text-green-700">🤖 ML Model Ready</span>
+                  </div>
+                )}
+                
+                <div className="flex items-center bg-blue-50 px-3 py-1.5 rounded-lg">
+                  <span className="text-sm text-blue-700">📚 {botInfo.intents_loaded} Intents</span>
+                </div>
+                
+                {isInConversation && currentTopic && (
+                  <div className="flex items-center bg-purple-50 px-3 py-1.5 rounded-lg">
+                    <span className="text-sm text-purple-700">🔄 In Flow: {getTopicDisplayName(currentTopic)}</span>
+                  </div>
+                )}
+              </div>
               
               {/* Conversation Status */}
               {isInConversation && currentTopic && (
@@ -435,20 +480,6 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row items-center gap-3">
-              {/* Status Indicator */}
-              <div className="flex items-center bg-gray-50 px-4 py-2 rounded-lg">
-                <div className={`w-3 h-3 rounded-full mr-2 ${getStatusColor()}`}></div>
-                <div>
-                  <span className="text-sm text-gray-600">
-                    {apiStatus === 'connected' ? 'API Connected' : 
-                     apiStatus === 'disconnected' ? 'API Disconnected' : 'Checking...'}
-                  </span>
-                  {apiStatus === 'connected' && (
-                    <div className="text-xs text-gray-500 mt-0.5">Flask:5000 • Next:3001</div>
-                  )}
-                </div>
-              </div>
-              
               {/* Action Buttons */}
               <div className="flex gap-2">
                 <button
@@ -458,7 +489,7 @@ export default function Home() {
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                   </svg>
-                  Refresh
+                  Refresh Status
                 </button>
                 
                 <button
@@ -468,7 +499,7 @@ export default function Home() {
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                   </svg>
-                  Test
+                  Test API
                 </button>
               </div>
             </div>
@@ -477,17 +508,13 @@ export default function Home() {
           {/* Quick Starters Grid */}
           <div className="mt-8">
             <p className="text-sm text-gray-500 mb-3 font-medium">🚀 Mulai percakapan dengan topik:</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {conversationStarters.map((starter, idx) => (
                 <button
                   key={idx}
-                  onClick={() => {
-                    setInput(starter.value)
-                    setTimeout(() => {
-                      document.querySelector('textarea')?.focus()
-                    }, 100)
-                  }}
-                  className="bg-gradient-to-br from-white to-gray-50 hover:from-blue-50 hover:to-blue-100 border border-gray-200 hover:border-blue-300 p-4 rounded-xl text-left transition-all duration-200 hover:shadow-md"
+                  onClick={() => handleQuickStarter(starter.value)}
+                  disabled={isLoading || apiStatus === 'disconnected'}
+                  className="bg-gradient-to-br from-white to-gray-50 hover:from-blue-50 hover:to-blue-100 border border-gray-200 hover:border-blue-300 p-4 rounded-xl text-left transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex items-start gap-3">
                     <div className="text-2xl">{starter.text.split(' ')[0]}</div>
@@ -512,17 +539,14 @@ export default function Home() {
                 className={`flex ${msg.sender === 'user' ? 'justify-end' : ''} ${
                   msg.isSystem ? 'justify-center' : ''
                 }`}
-                style={{ animationDelay: '0.1s' }}
               >
                 <div className={`max-w-[85%] p-5 rounded-2xl transition-all duration-300 ${
                   msg.sender === 'user' 
                     ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-br-none shadow-lg' 
                     : msg.isError
                     ? 'bg-gradient-to-r from-red-50 to-red-100 text-red-800 border border-red-200 shadow-sm'
-                    : msg.isSystem
+                    : msg.isSystem || msg.isStatus
                     ? 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 border border-gray-200'
-                    : msg.isSuccess
-                    ? 'bg-gradient-to-r from-green-50 to-green-100 text-green-800 border border-green-200 shadow-sm'
                     : msg.isOptions
                     ? 'bg-gradient-to-r from-purple-50 to-purple-100 text-purple-800 border border-purple-200 shadow-sm'
                     : msg.isTip
@@ -565,7 +589,7 @@ export default function Home() {
                   )}
                   
                   {/* Metadata */}
-                  {(msg.intent || msg.method) && !msg.isError && !msg.isSystem && !msg.isOptions && !msg.isTip && (
+                  {(msg.intent || msg.method) && !msg.isError && !msg.isSystem && !msg.isStatus && !msg.isOptions && !msg.isTip && (
                     <div className="mt-3 pt-3 border-t border-gray-300/30">
                       <div className="flex flex-wrap items-center gap-2 mb-2">
                         {msg.intent && (
@@ -617,7 +641,7 @@ export default function Home() {
                             <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
-                            ML Used
+                            ML Active
                           </span>
                         )}
                       </div>
@@ -718,7 +742,7 @@ export default function Home() {
                   </button>
                   
                   <a
-                    href="/api/chat"
+                    href={API_URL}
                     target="_blank"
                     className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm transition flex items-center justify-center"
                   >
@@ -738,16 +762,13 @@ export default function Home() {
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
-                  <span className="font-medium">Flask API Tidak Terhubung</span>
+                  <span className="font-medium">API Tidak Terhubung</span>
                 </div>
                 <div className="text-red-700 text-sm mt-2 ml-7">
-                  <p>Jalankan perintah berikut di terminal:</p>
-                  <code className="block mt-1 bg-red-200 px-3 py-2 rounded font-mono text-xs">
-                    cd C:\Users\HP\chatbot<br />
-                    .\venv\Scripts\Activate.ps1<br />
-                    python app.py
-                  </code>
-                  <p className="mt-2">Kemudian refresh halaman ini.</p>
+                  <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
+                  <p><strong>API URL:</strong> {API_URL}</p>
+                  <p className="mt-2">Refresh halaman atau coba beberapa saat lagi.</p>
+                  <p className="mt-1 text-xs">Jika error berlanjut, pastikan API endpoint tersedia.</p>
                 </div>
               </div>
             )}
@@ -755,10 +776,10 @@ export default function Home() {
             {/* Tips */}
             <div className="mt-4 text-center text-gray-500 text-sm">
               <p>
-                <span className="font-medium">💡 Tips:</span> Sistem menggunakan hybrid: {botInfo.model_loaded ? 'ML untuk klasifikasi utama, rule-based sebagai fallback' : 'Rule-based dengan pattern matching'}
+                <span className="font-medium">💡 Tips:</span> Sistem menggunakan {botInfo.model_loaded ? 'ML untuk klasifikasi utama' : 'rule-based dengan pattern matching'}
               </p>
               <p className="mt-1 text-xs">
-                🤖 Chatbot v2.0 • Hybrid System • {USE_PROXY ? 'Next.js Proxy' : 'Direct Flask'}
+                🤖 Chatbot v2.0 • Vercel Edge Functions • {process.env.NODE_ENV === 'development' ? 'Development Mode' : 'Production Mode'}
               </p>
             </div>
           </div>
