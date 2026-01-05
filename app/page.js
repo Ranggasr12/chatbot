@@ -93,7 +93,7 @@ const QUICK_STARTERS = [
   }
 ];
 
-export default function Home() {
+export default function ChatbotPage() {
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -225,7 +225,7 @@ export default function Home() {
           setMessages(prev => [...prev, errorMessage]);
         }
         setIsLoading(false);
-      }, 800); // Typing delay for realistic feel
+      }, 800);
 
     } catch (error) {
       setTyping(false);

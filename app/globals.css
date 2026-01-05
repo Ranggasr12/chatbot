@@ -5,19 +5,11 @@
 :root {
   --primary: #3b82f6;
   --primary-dark: #2563eb;
-  --secondary: #8b5cf6;
-  --accent: #10b981;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-  --info: #06b6d4;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gray-950 text-gray-100 antialiased;
   }
 }
 
@@ -38,7 +30,7 @@
   @apply bg-gray-600;
 }
 
-/* Message bubble animation */
+/* Message animation */
 @keyframes messageIn {
   from {
     opacity: 0;
@@ -54,7 +46,7 @@
   animation: messageIn 0.3s ease-out;
 }
 
-/* Loading dots animation */
+/* Loading dots */
 @keyframes blink {
   0%, 100% { opacity: 0.2; }
   50% { opacity: 1; }

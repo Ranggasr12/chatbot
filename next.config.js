@@ -5,11 +5,7 @@ const nextConfig = {
   images: {
     domains: [],
   },
-  // Important for Vercel
-  experimental: {
-    appDir: true,
-  },
-  // Handle errors gracefully
+  // Remove experimental.appDir - it's enabled by default
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
