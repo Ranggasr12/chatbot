@@ -2,19 +2,25 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // IMPORTANT FOR VERCEL
-  output: 'standalone',
-  // Disable ESLint and TypeScript during build
+  
+  // WAJIB untuk Netlify: Static Export
+  output: 'export',
+  
+  // WAJIB untuk Netlify
+  trailingSlash: true,
+  
+  // Nonaktifkan image optimization
+  images: {
+    unoptimized: true,
+  },
+  
+  // Nonaktifkan ESLint/TypeScript checking
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
-  },
-  // Disable image optimization for now
-  images: {
-    unoptimized: true,
-  },
+  }
 }
 
 module.exports = nextConfig

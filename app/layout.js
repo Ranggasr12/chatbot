@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'AI Chatbot Interaktif',
-  description: 'Chatbot cerdas dengan percakapan kontekstual',
+  title: 'AI Chatbot - Netlify',
+  description: 'Chatbot sederhana deploy di Netlify',
 }
 
 export default function RootLayout({ children }) {
