@@ -1,17 +1,19 @@
-import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata = {
-  title: 'Chatbot Akademik ',
-  description: 'Chatbot untuk informasi akademik kampus',
+  title: 'AI Chatbot Akademik',
+  description: 'Chatbot cerdas untuk informasi kampus',
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id" className="dark">
-      <body className={`${inter.className} bg-gray-950 text-gray-100`}>
+    <html lang="id">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body className="antialiased">
         {children}
       </body>
     </html>
