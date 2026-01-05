@@ -5,16 +5,14 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Chatbot Akademik',
-  description: 'Chatbot untuk informasi akademik kampus',
+  description: 'Chatbot informasi kampus',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="id">
       <body className={inter.className}>
-        <main className="min-h-screen">
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   )
