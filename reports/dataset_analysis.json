@@ -1,0 +1,105 @@
+{
+  "summary": {
+    "total_intents": 13,
+    "total_patterns": 768,
+    "total_unique_words": 865,
+    "average_patterns_per_intent": 59.07692307692308,
+    "median_patterns_per_intent": 60.0,
+    "std_patterns_per_intent": 2.673561107228118,
+    "date_generated": "2025-12-26T19:10:16.711460"
+  },
+  "intent_ranking": [
+    {
+      "rank": 1,
+      "tag": "sertifikasi_mikro",
+      "patterns": 64,
+      "percentage": 8.333333333333332
+    },
+    {
+      "rank": 2,
+      "tag": "fasilitas_digital",
+      "patterns": 62,
+      "percentage": 8.072916666666668
+    },
+    {
+      "rank": 3,
+      "tag": "prestasi_non_akademik",
+      "patterns": 62,
+      "percentage": 8.072916666666668
+    },
+    {
+      "rank": 4,
+      "tag": "inkubasi_startup",
+      "patterns": 60,
+      "percentage": 7.8125
+    },
+    {
+      "rank": 5,
+      "tag": "layanan_alumni",
+      "patterns": 60,
+      "percentage": 7.8125
+    },
+    {
+      "rank": 6,
+      "tag": "keberlanjutan",
+      "patterns": 60,
+      "percentage": 7.8125
+    },
+    {
+      "rank": 7,
+      "tag": "kesehatan_mental",
+      "patterns": 60,
+      "percentage": 7.8125
+    },
+    {
+      "rank": 8,
+      "tag": "riset_terapan",
+      "patterns": 58,
+      "percentage": 7.552083333333333
+    },
+    {
+      "rank": 9,
+      "tag": "pengabdian_masyarakat",
+      "patterns": 58,
+      "percentage": 7.552083333333333
+    },
+    {
+      "rank": 10,
+      "tag": "bencana_alam",
+      "patterns": 58,
+      "percentage": 7.552083333333333
+    },
+    {
+      "rank": 11,
+      "tag": "kelas_internasional",
+      "patterns": 56,
+      "percentage": 7.291666666666667
+    },
+    {
+      "rank": 12,
+      "tag": "kesetaraan_gender",
+      "patterns": 56,
+      "percentage": 7.291666666666667
+    },
+    {
+      "rank": 13,
+      "tag": "pandemi_covid19",
+      "patterns": 54,
+      "percentage": 7.03125
+    }
+  ],
+  "quality_metrics": {
+    "total_intents": 13,
+    "total_patterns": 768,
+    "total_responses": 26,
+    "avg_patterns_per_intent": 59.07692307692308,
+    "avg_responses_per_intent": 2.0,
+    "class_balance_score": 0.84375,
+    "data_quality_score": 0,
+    "avg_pattern_length": 23.686197916666668,
+    "avg_response_length": 126.65384615384616,
+    "unique_words": 865,
+    "processing_timestamp": "2025-12-26T19:10:16.686658"
+  },
+  "potential_issues": []
+}

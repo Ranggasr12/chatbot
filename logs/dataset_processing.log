@@ -1,0 +1,53 @@
+2025-12-26 19:10:16,631 - WARNING - NLTK stopwords not available: 
+**********************************************************************
+  Resource [93mstopwords[0m not found.
+  Please use the NLTK Downloader to obtain the resource:
+
+  [31m>>> import nltk
+  >>> nltk.download('stopwords')
+  [0m
+  For more information see: https://www.nltk.org/data.html
+
+  Attempted to load [93mcorpora/stopwords[0m
+
+  Searched in:
+    - 'C:\\Users\\HP/nltk_data'
+    - 'C:\\Users\\HP\\chatbot\\venv\\nltk_data'
+    - 'C:\\Users\\HP\\chatbot\\venv\\share\\nltk_data'
+    - 'C:\\Users\\HP\\chatbot\\venv\\lib\\nltk_data'
+    - 'C:\\Users\\HP\\AppData\\Roaming\\nltk_data'
+    - 'C:\\nltk_data'
+    - 'D:\\nltk_data'
+    - 'E:\\nltk_data'
+**********************************************************************
+
+2025-12-26 19:10:16,636 - INFO - Initialized DatasetProcessor with file: models/intents.json
+2025-12-26 19:10:16,660 - INFO - ============================================================
+2025-12-26 19:10:16,660 - INFO - Loading dataset from models/intents.json
+2025-12-26 19:10:16,703 - INFO - ============================================================
+2025-12-26 19:10:16,703 - INFO -   sertifikasi_mikro           64 patterns (  8.3%) |  2 responses
+2025-12-26 19:10:16,703 - INFO -   fasilitas_digital           62 patterns (  8.1%) |  2 responses
+2025-12-26 19:10:16,704 - INFO -   prestasi_non_akademik       62 patterns (  8.1%) |  2 responses
+2025-12-26 19:10:16,704 - INFO -   inkubasi_startup            60 patterns (  7.8%) |  2 responses
+2025-12-26 19:10:16,704 - INFO -   layanan_alumni              60 patterns (  7.8%) |  2 responses
+2025-12-26 19:10:16,704 - INFO -   keberlanjutan               60 patterns (  7.8%) |  2 responses
+2025-12-26 19:10:16,704 - INFO -   kesehatan_mental            60 patterns (  7.8%) |  2 responses
+2025-12-26 19:10:16,704 - INFO -   riset_terapan               58 patterns (  7.6%) |  2 responses
+2025-12-26 19:10:16,705 - INFO -   pengabdian_masyarakat       58 patterns (  7.6%) |  2 responses
+2025-12-26 19:10:16,705 - INFO -   bencana_alam                58 patterns (  7.6%) |  2 responses
+2025-12-26 19:10:16,705 - INFO -   kelas_internasional         56 patterns (  7.3%) |  2 responses
+2025-12-26 19:10:16,705 - INFO -   kesetaraan_gender           56 patterns (  7.3%) |  2 responses
+2025-12-26 19:10:16,705 - INFO -   pandemi_covid19             54 patterns (  7.0%) |  2 responses
+2025-12-26 19:10:16,706 - INFO - ============================================================
+2025-12-26 19:10:16,706 - INFO -   Total: 768 patterns across 13 intents
+2025-12-26 19:10:16,706 - INFO -   Imbalance Ratio: 1.19
+2025-12-26 19:10:16,721 - INFO -    Training set:   536 samples (69.8%)
+2025-12-26 19:10:16,722 - INFO -    Validation set: 116 samples (15.1%)
+2025-12-26 19:10:16,722 - INFO -    Test set:       116 samples (15.1%)
+2025-12-26 19:10:16,734 - INFO - 
+============================================================
+2025-12-26 19:10:16,735 - INFO - ============================================================
+2025-12-26 19:10:16,743 - INFO -    1. Check quality metrics in reports/dataset_analysis.json
+2025-12-26 19:10:16,743 - INFO -    2. Review potential issues in the analysis
+2025-12-26 19:10:16,743 - INFO -    3. Run: python scripts/train_model.py
+2025-12-26 19:10:16,743 - INFO -    4. Deploy your model!

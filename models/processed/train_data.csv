@@ -1,0 +1,537 @@
+text,intent
+international internship,kelas_internasional
+social science research,riset_terapan
+venture capital connection,inkubasi_startup
+kurikulum internasional,kelas_internasional
+cisco networking academy,sertifikasi_mikro
+startup weekend,inkubasi_startup
+attendance system with facial recognition,fasilitas_digital
+online international program,kelas_internasional
+global case competition,kelas_internasional
+kesehatan mental mahasiswa,kesehatan_mental
+blockchain certificate,sertifikasi_mikro
+suicide prevention,kesehatan_mental
+alumni award recipient,layanan_alumni
+gender equality certification,kesetaraan_gender
+women in academia,kesetaraan_gender
+alumni regional gathering,layanan_alumni
+sertifikat profesional singkat,sertifikasi_mikro
+medical device research,riset_terapan
+personality disorder support,kesehatan_mental
+donasi untuk almamater,layanan_alumni
+disaster and gender,bencana_alam
+international law program,kelas_internasional
+tsunami evacuation drill,bencana_alam
+clean up day,keberlanjutan
+entrepreneurship certificate,sertifikasi_mikro
+program kelas internasional,kelas_internasional
+female faculty development,kesetaraan_gender
+green office program,keberlanjutan
+world environment day,keberlanjutan
+investor meeting simulation,inkubasi_startup
+biodiversity in campus,keberlanjutan
+commercialization of research result,riset_terapan
+bicycle friendly campus,keberlanjutan
+aws training,sertifikasi_mikro
+recycling program,keberlanjutan
+marginalized community support,pengabdian_masyarakat
+positive masculinity program,kesetaraan_gender
+data analytics certificate,sertifikasi_mikro
+market entry strategy,inkubasi_startup
+upskill course for working professional,sertifikasi_mikro
+startup acquisition guidance,inkubasi_startup
+broadcasting studio,fasilitas_digital
+alumni directory,layanan_alumni
+agile methodology certificate,sertifikasi_mikro
+alumni feedback for curriculum,layanan_alumni
+agritech program,inkubasi_startup
+apakah kuliah online atau offline,pandemi_covid19
+kembali ke kampus setelah pandemi,pandemi_covid19
+digital transformation office,fasilitas_digital
+badge digital untuk skill,sertifikasi_mikro
+global market access,inkubasi_startup
+ptsd support,kesehatan_mental
+relawan covid di kampus,pandemi_covid19
+earthquake safety in campus,bencana_alam
+nfc access system,fasilitas_digital
+guest lecture by alumni,layanan_alumni
+elderly care program,pengabdian_masyarakat
+biotech startup incubator,inkubasi_startup
+eating disorder support,kesehatan_mental
+alumni recruitment,layanan_alumni
+alumni thought leader,layanan_alumni
+konferensi online,pandemi_covid19
+border area development,pengabdian_masyarakat
+alumni in academia,layanan_alumni
+big data infrastructure,fasilitas_digital
+wisuda selama pandemi,pandemi_covid19
+art therapy,kesehatan_mental
+micro credential program,sertifikasi_mikro
+leadership competition,prestasi_non_akademik
+intercultural communication skill,kelas_internasional
+sertifikat vaksin untuk akses kampus,pandemi_covid19
+pengabdian masyarakat,pengabdian_masyarakat
+global governance,kelas_internasional
+international research grant,riset_terapan
+alumni referral program,layanan_alumni
+olahraga di kampus selama pandemi,pandemi_covid19
+campus wifi coverage,fasilitas_digital
+alumni ambassador program,layanan_alumni
+legal advice for startup,inkubasi_startup
+cloud computing certificate,sertifikasi_mikro
+flood control system,bencana_alam
+aplikasi tracing kampus,pandemi_covid19
+disaster and children,bencana_alam
+micro enterprise development,pengabdian_masyarakat
+green metric,keberlanjutan
+psychology research,riset_terapan
+united nations model,kelas_internasional
+technology competition,prestasi_non_akademik
+educational program for underprivileged,pengabdian_masyarakat
+kesetaraan gender di kampus,kesetaraan_gender
+mental health accommodation,kesehatan_mental
+global virtual team project,kelas_internasional
+leed certified building,keberlanjutan
+queer studies,kesetaraan_gender
+market validation support,inkubasi_startup
+sistem pembelajaran jarak jauh,pandemi_covid19
+workshop entrepreneurship,inkubasi_startup
+disability support for mental health,kesehatan_mental
+prototype funding,inkubasi_startup
+single use plastic ban,keberlanjutan
+race and gender,kesetaraan_gender
+theater competition,prestasi_non_akademik
+gender bias training,kesetaraan_gender
+sirkulasi udara di gedung,pandemi_covid19
+film competition,prestasi_non_akademik
+alumni investment fund,inkubasi_startup
+environmental science program,keberlanjutan
+bantuan untuk mahasiswa terdampak covid,pandemi_covid19
+refugee studies,bencana_alam
+sustainability committee,keberlanjutan
+business plan competition,inkubasi_startup
+makan di kantin boleh buka masker,pandemi_covid19
+carbon footprint calculator,keberlanjutan
+homecoming event,layanan_alumni
+water security in disaster,bencana_alam
+penerimaan mahasiswa baru selama pandemi,pandemi_covid19
+peer support group,kesehatan_mental
+crisis hotline,kesehatan_mental
+program inkubasi startup,inkubasi_startup
+grief counseling,kesehatan_mental
+environmental policy,keberlanjutan
+akreditasi internasional,kelas_internasional
+sustainability report,keberlanjutan
+pitching competition,inkubasi_startup
+fishery development program,pengabdian_masyarakat
+sanitation project,pengabdian_masyarakat
+prestasi non akademik,prestasi_non_akademik
+robotics competition,prestasi_non_akademik
+family counseling,kesehatan_mental
+skripsi selama pandemi,pandemi_covid19
+health service for community,pengabdian_masyarakat
+arts research,riset_terapan
+community service competition,prestasi_non_akademik
+active shooter drill,bencana_alam
+global citizenship program,pengabdian_masyarakat
+math olympiad,prestasi_non_akademik
+international business program,kelas_internasional
+innovation lab,fasilitas_digital
+pcr test untuk mahasiswa,pandemi_covid19
+architecture research,riset_terapan
+weekend class,kelas_internasional
+social impact of research,riset_terapan
+research data management system,fasilitas_digital
+sustainable development competition,prestasi_non_akademik
+co working space untuk startup,inkubasi_startup
+teaching certificate,sertifikasi_mikro
+alumni whatsapp group,layanan_alumni
+agricultural research,riset_terapan
+kebijakan kuliah selama pandemi,pandemi_covid19
+chief information officer,fasilitas_digital
+think tank at university,riset_terapan
+sustainability certificate,sertifikasi_mikro
+renewable energy research,riset_terapan
+lactation room,kesetaraan_gender
+stackable certificate,sertifikasi_mikro
+emergency assembly point,bencana_alam
+kesiapsiagaan bencana di kampus,bencana_alam
+aviation competition,prestasi_non_akademik
+sleep hygiene workshop,kesehatan_mental
+achievement in sports,prestasi_non_akademik
+innovation ecosystem research,riset_terapan
+digital payment system,fasilitas_digital
+creativity award,prestasi_non_akademik
+innovation award,prestasi_non_akademik
+green job opportunity,keberlanjutan
+laboratorium online selama pandemi,pandemi_covid19
+praktikum bagaimana saat pandemi,pandemi_covid19
+alumni in government,layanan_alumni
+education impact research,riset_terapan
+bahasa pengantar inggris,kelas_internasional
+organic garden,keberlanjutan
+isolasi mandiri bagi mahasiswa terkonfirmasi covid,pandemi_covid19
+it helpdesk,fasilitas_digital
+design thinking for business,inkubasi_startup
+digital document system,keberlanjutan
+women entrepreneurship support,kesetaraan_gender
+fire safety,bencana_alam
+earthquake drill,bencana_alam
+research methodology certificate,sertifikasi_mikro
+local food sourcing,keberlanjutan
+industry recognized certificate,sertifikasi_mikro
+alumni achievement award,layanan_alumni
+white paper from research,riset_terapan
+urban farming,keberlanjutan
+foreign policy analysis,kelas_internasional
+disaster nursing,bencana_alam
+evacuation route,bencana_alam
+toxic masculinity discussion,kesetaraan_gender
+donasi untuk penanganan covid,pandemi_covid19
+startup ecosystem research,riset_terapan
+religion and gender,kesetaraan_gender
+alumni impact story,layanan_alumni
+high performance computing,fasilitas_digital
+continuing education unit,sertifikasi_mikro
+sdg 5 achievement in campus,kesetaraan_gender
+academic pressure coping,kesehatan_mental
+supply chain management certificate,sertifikasi_mikro
+career support for alumni,layanan_alumni
+executive class,kelas_internasional
+program double degree,kelas_internasional
+covid 19 community support,pengabdian_masyarakat
+ielts minimum score,kelas_internasional
+mental health awareness campaign,kesehatan_mental
+agricultural extension program,pengabdian_masyarakat
+google certificate program,sertifikasi_mikro
+robotics certificate,sertifikasi_mikro
+digital fabrication lab,fasilitas_digital
+mindfulness meditation,kesehatan_mental
+business plan competition,prestasi_non_akademik
+journalism competition,prestasi_non_akademik
+mental health screening,kesehatan_mental
+mental health research,kesehatan_mental
+humanitarian logistics,bencana_alam
+disaster fund,bencana_alam
+search and rescue team,bencana_alam
+water conservation,keberlanjutan
+keberlanjutan di kampus,keberlanjutan
+digital studio,fasilitas_digital
+vegetarian option in cafeteria,keberlanjutan
+art competition award,prestasi_non_akademik
+music therapy,kesehatan_mental
+disaster management system,fasilitas_digital
+joint publication,kelas_internasional
+peace building program,pengabdian_masyarakat
+edtech innovation,inkubasi_startup
+first aid training,bencana_alam
+vaccination drive for community,pengabdian_masyarakat
+parking management system,fasilitas_digital
+university outreach program,pengabdian_masyarakat
+disaster and disability,bencana_alam
+electric vehicle charging,keberlanjutan
+buddy program for international students,kelas_internasional
+emergency communication system,bencana_alam
+moot court competition,prestasi_non_akademik
+cooperative development,pengabdian_masyarakat
+international immersion program,kelas_internasional
+unconscious bias workshop,kesetaraan_gender
+recording studio,fasilitas_digital
+law research,riset_terapan
+female founder network,kesetaraan_gender
+women empowerment program,pengabdian_masyarakat
+digital repository,fasilitas_digital
+alumni social media group,layanan_alumni
+alumni book author,layanan_alumni
+poetry competition,prestasi_non_akademik
+accounting for startups,inkubasi_startup
+sustainable development goals course,kelas_internasional
+sensor network in campus,fasilitas_digital
+defense competition,prestasi_non_akademik
+heritage conservation,pengabdian_masyarakat
+alumni hall of fame,layanan_alumni
+carbon neutral campus,keberlanjutan
+renewable energy certificate,sertifikasi_mikro
+alumni magazine,layanan_alumni
+alumni travel program,layanan_alumni
+local product development,pengabdian_masyarakat
+conflict resolution training,pengabdian_masyarakat
+artificial intelligence research,riset_terapan
+gender based violence prevention,kesetaraan_gender
+engineering competition,prestasi_non_akademik
+hackathon for social innovation,inkubasi_startup
+alumni teaching opportunity,layanan_alumni
+water quality monitoring,fasilitas_digital
+indoor positioning system,fasilitas_digital
+healthy relationship workshop,kesetaraan_gender
+technology transfer,riset_terapan
+backup power generator,bencana_alam
+discovery competition,prestasi_non_akademik
+disaster management course,bencana_alam
+agriculture competition,prestasi_non_akademik
+company registration assistance,inkubasi_startup
+career counseling for mental health,kesehatan_mental
+science olympiad,prestasi_non_akademik
+remote area development,pengabdian_masyarakat
+patent competition,prestasi_non_akademik
+kuliah kerja nyata kkn,pengabdian_masyarakat
+iot certificate,sertifikasi_mikro
+student volunteer program,pengabdian_masyarakat
+disaster relief,bencana_alam
+content creation certificate,sertifikasi_mikro
+masculinity studies,kesetaraan_gender
+alumni giving,layanan_alumni
+exercise for mental health,kesehatan_mental
+digital badge from university,sertifikasi_mikro
+animal rescue in disaster,bencana_alam
+disaster and elderly,bencana_alam
+credit transfer ke luar negeri,kelas_internasional
+alumni sponsored research,layanan_alumni
+photography competition,prestasi_non_akademik
+motivation problem,kesehatan_mental
+alumni legacy,layanan_alumni
+government funded research,riset_terapan
+sanitation in emergency,bencana_alam
+alumni patent holder,layanan_alumni
+health screening program,pengabdian_masyarakat
+solar panel installation,keberlanjutan
+clean water project,pengabdian_masyarakat
+international relations,kelas_internasional
+patent from university research,riset_terapan
+mentor bisnis dari industri,inkubasi_startup
+social responsibility program,pengabdian_masyarakat
+class and gender,kesetaraan_gender
+alumni family program,layanan_alumni
+fire safety engineering,bencana_alam
+hotline covid kampus,pandemi_covid19
+bike sharing system,fasilitas_digital
+digital marketing for startup,inkubasi_startup
+cashless campus,fasilitas_digital
+community based research,riset_terapan
+social anxiety support,kesehatan_mental
+ipo preparation for university spin off,inkubasi_startup
+workforce development program,sertifikasi_mikro
+tes covid di kampus,pandemi_covid19
+medical competition,prestasi_non_akademik
+learning management system,fasilitas_digital
+alumni research collaboration,layanan_alumni
+mental health day,kesehatan_mental
+biology olympiad,prestasi_non_akademik
+sanitizer tersedia di mana saja,pandemi_covid19
+participatory research,riset_terapan
+frontend development certificate,sertifikasi_mikro
+video production certificate,sertifikasi_mikro
+penelitian tentang covid 19,pandemi_covid19
+dentistry competition,prestasi_non_akademik
+landslide prevention,bencana_alam
+alumni network,layanan_alumni
+international conference funding,kelas_internasional
+lean startup workshop,inkubasi_startup
+contract research,riset_terapan
+gender equality policy,kesetaraan_gender
+space research,riset_terapan
+innovation certificate,sertifikasi_mikro
+electric vehicle charging station,fasilitas_digital
+environmental audit,keberlanjutan
+networking with alumni entrepreneurs,inkubasi_startup
+environmental education,keberlanjutan
+urban community project,pengabdian_masyarakat
+international class,kelas_internasional
+childcare facility,kesetaraan_gender
+layanan konseling selama pandemi,pandemi_covid19
+critical thinking certificate,sertifikasi_mikro
+corporate training program,sertifikasi_mikro
+apakah wajib vaksin untuk masuk kampus,pandemi_covid19
+sertifikat internasional,kelas_internasional
+environmental impact assessment,keberlanjutan
+economic impact of university research,riset_terapan
+women entrepreneurship program,inkubasi_startup
+consultancy service by faculty,riset_terapan
+digital innovation team,fasilitas_digital
+stigma reduction program,kesehatan_mental
+business license guidance,inkubasi_startup
+negotiation competition,prestasi_non_akademik
+research competition for undergraduate,prestasi_non_akademik
+women studies program,kesetaraan_gender
+pharmacy competition,prestasi_non_akademik
+network operation center,fasilitas_digital
+laporan kasus covid di kampus,pandemi_covid19
+transgender support,kesetaraan_gender
+microsoft certification,sertifikasi_mikro
+diversity and inclusion training,kelas_internasional
+climate change course,keberlanjutan
+intersectionality program,kesetaraan_gender
+volunteer award,prestasi_non_akademik
+chief digital officer,fasilitas_digital
+hackathon award,prestasi_non_akademik
+minimum viable product guidance,inkubasi_startup
+public speaking fear,kesehatan_mental
+disaster resistant building,bencana_alam
+technology impact assessment,riset_terapan
+energy efficient building,keberlanjutan
+autism spectrum support,kesehatan_mental
+alumni startup founder,layanan_alumni
+kebijakan absensi selama pandemi,pandemi_covid19
+asuransi kesehatan covid,pandemi_covid19
+applied research,riset_terapan
+protokol kesehatan di kampus,pandemi_covid19
+mock trial competition,prestasi_non_akademik
+rural development project,pengabdian_masyarakat
+alumni reunion,layanan_alumni
+depression treatment,kesehatan_mental
+parent support for student,kesetaraan_gender
+design research,riset_terapan
+funding pitch preparation,inkubasi_startup
+business continuity system,fasilitas_digital
+iot infrastructure,fasilitas_digital
+biotechnology research,riset_terapan
+financial planning certificate,sertifikasi_mikro
+study tour ke luar negeri,kelas_internasional
+entrepreneurship research,riset_terapan
+women in business,kesetaraan_gender
+sustainability business model,inkubasi_startup
+alumni survey,layanan_alumni
+project management certificate,sertifikasi_mikro
+yoga for stress relief,kesehatan_mental
+disaster response team,pengabdian_masyarakat
+procrastination help,kesehatan_mental
+smart lighting,fasilitas_digital
+support for male students in non traditional field,kesetaraan_gender
+alumni in industry,layanan_alumni
+cross cultural understanding program,pengabdian_masyarakat
+debate championship,prestasi_non_akademik
+social media for business,inkubasi_startup
+environmental activism,keberlanjutan
+gender stereotype challenge,kesetaraan_gender
+sustainable procurement,keberlanjutan
+disaster insurance,bencana_alam
+emergency alert system,fasilitas_digital
+series a preparation,inkubasi_startup
+social media marketing certificate,sertifikasi_mikro
+un collaboration for disaster,bencana_alam
+gender mainstreaming in curriculum,kesetaraan_gender
+ai and machine learning certificate,sertifikasi_mikro
+consent education,kesetaraan_gender
+scholarship for international class,kelas_internasional
+risk management certificate,sertifikasi_mikro
+online library access,fasilitas_digital
+volcano monitoring,bencana_alam
+vaksinasi untuk mahasiswa,pandemi_covid19
+data center,fasilitas_digital
+tech startup support,inkubasi_startup
+research for policy making,riset_terapan
+solar panel monitoring,fasilitas_digital
+kuliah bahasa inggris,kelas_internasional
+sustainability ranking,keberlanjutan
+environmental monitoring system,fasilitas_digital
+climate adaptation research,bencana_alam
+design thinking certificate,sertifikasi_mikro
+digital marketing certificate,sertifikasi_mikro
+student environmental club,keberlanjutan
+transportasi kampus selama pandemi,pandemi_covid19
+industry sponsored research,riset_terapan
+disaster response plan,bencana_alam
+alumni entrepreneur network,layanan_alumni
+arts and culture program,pengabdian_masyarakat
+market access for community product,pengabdian_masyarakat
+technology commercialization,inkubasi_startup
+kompetisi bisnis mahasiswa,inkubasi_startup
+university venture fund,inkubasi_startup
+education research,riset_terapan
+model united nations award,prestasi_non_akademik
+women in tech program,kesetaraan_gender
+alumni credit card,layanan_alumni
+penangguhan studi karena pandemi,pandemi_covid19
+schizophrenia support,kesehatan_mental
+campus mobile app,fasilitas_digital
+glass ceiling research,kesetaraan_gender
+layanan kesehatan mental selama pandemi,pandemi_covid19
+inclusive language guide,kesetaraan_gender
+micro credential,kelas_internasional
+addiction treatment,kesehatan_mental
+backend development certificate,sertifikasi_mikro
+carpool program,keberlanjutan
+cctv with ai analytics,fasilitas_digital
+post disaster reconstruction,pengabdian_masyarakat
+alumni linkedin group,layanan_alumni
+equity free grant for startup,inkubasi_startup
+disaster preparedness,bencana_alam
+pertukaran pelajar selama pandemi,pandemi_covid19
+gender research center,kesetaraan_gender
+time management for mental health,kesehatan_mental
+non binary student support,kesetaraan_gender
+alumni newsletter,layanan_alumni
+emergency medicine training,bencana_alam
+maritime competition,prestasi_non_akademik
+online certificate program,sertifikasi_mikro
+alumni company visit,layanan_alumni
+diplomacy program,kelas_internasional
+gender neutral toilet,kesetaraan_gender
+renewable energy for village,pengabdian_masyarakat
+cloud computing for research,fasilitas_digital
+youth development program,pengabdian_masyarakat
+gender responsive pedagogy,kesetaraan_gender
+drainage system,bencana_alam
+ai computing cluster,fasilitas_digital
+sports development in community,pengabdian_masyarakat
+architecture competition,prestasi_non_akademik
+buddy system,kesehatan_mental
+action research,riset_terapan
+urban planning research,riset_terapan
+stress management,kesehatan_mental
+fishery competition,prestasi_non_akademik
+international research collaboration,kelas_internasional
+composting facility,keberlanjutan
+physics olympiad,prestasi_non_akademik
+arbitration competition,prestasi_non_akademik
+international student association,kelas_internasional
+hospitalization for mental health,kesehatan_mental
+fasilitas digital kampus,fasilitas_digital
+kerjasama dengan rumah sakit,pandemi_covid19
+trauma counseling,kesehatan_mental
+community resilience,bencana_alam
+multinational company recruitment,kelas_internasional
+alumni scholarship fund,layanan_alumni
+global citizenship program,kelas_internasional
+zero waste campaign,keberlanjutan
+smart city innovation,inkubasi_startup
+sdg implementation in campus,keberlanjutan
+edukasi pencegahan covid,pandemi_covid19
+financial projection workshop,inkubasi_startup
+disaster risk reduction research,bencana_alam
+in house training,sertifikasi_mikro
+earth day celebration,keberlanjutan
+community based tourism,pengabdian_masyarakat
+sustainability research,riset_terapan
+pembatasan kapasitas ruangan,pandemi_covid19
+pharmaceutical research,riset_terapan
+men studies program,kesetaraan_gender
+perfectionism counseling,kesehatan_mental
+alumni advisory board,layanan_alumni
+earthquake engineering,bencana_alam
+material science research,riset_terapan
+professional development course,sertifikasi_mikro
+research impact assessment,riset_terapan
+sexual harassment prevention,kesetaraan_gender
+digital literacy program,pengabdian_masyarakat
+full stack developer certificate,sertifikasi_mikro
+thesis competition,prestasi_non_akademik
+sustainability curriculum,keberlanjutan
+alumni discount for further study,layanan_alumni
+medication management,kesehatan_mental
+3d printing facility,fasilitas_digital
+disability support program,pengabdian_masyarakat
+chemistry olympiad,prestasi_non_akademik
+bipolar disorder support,kesehatan_mental
+pet therapy,kesehatan_mental
+executive mba,kelas_internasional
+relationship counseling,kesehatan_mental
+smart id card,fasilitas_digital
+waste management,keberlanjutan
+kelas malam untuk pekerja,kelas_internasional
+digital signage,fasilitas_digital
+circular economy research,keberlanjutan
+exit strategy workshop,inkubasi_startup
+nursing competition,prestasi_non_akademik
+mental health support for community,pengabdian_masyarakat
+translation certificate,sertifikasi_mikro

@@ -1,0 +1,23 @@
+{
+  "model_type": "MLPClassifier",
+  "hidden_layers": [
+    128,
+    64
+  ],
+  "classes": [
+    "bencana_alam",
+    "fasilitas_digital",
+    "inkubasi_startup",
+    "keberlanjutan",
+    "kelas_internasional",
+    "kesehatan_mental",
+    "kesetaraan_gender",
+    "layanan_alumni",
+    "pandemi_covid19",
+    "pengabdian_masyarakat",
+    "prestasi_non_akademik",
+    "riset_terapan",
+    "sertifikasi_mikro"
+  ],
+  "training_date": "2025-12-26 16:15:30"
+}

@@ -1,0 +1,389 @@
+text,intent
+booking lab kelompok,lab_booking
+nasi padang kampus,canteen_food
+akomodasi sekarang,asrama_mahasiswa
+harga kamar,asrama_mahasiswa
+coffee shop kampus,canteen_food
+sks yang sudah selesai diambil,sks_dan_ipk
+tarif kamar,asrama_mahasiswa
+vaksinasi kampus,health_services
+perpustakaan anak,facility_hours
+good night,greeting
+isi krs,krs_dan_kartu_rencana_studi
+timeline krs,krs_dan_kartu_rencana_studi
+pengisian krs,krs_dan_kartu_rencana_studi
+bus route,bus_schedule
+sks yang sudah diselesaikan,sks_dan_ipk
+jadwal kuliah siang,jadwal_kuliah
+kos saat ini,asrama_mahasiswa
+lapangan sepak bola,sport_facilities
+bus map,bus_schedule
+harga makanan kantin,canteen_food
+satuan kredit,sks_dan_ipk
+kalender pendek,kalender_akademik
+jadwal kelas,jadwal_kuliah
+jadwal kuliah online,jadwal_kuliah
+lab komputer perpustakaan jam,facility_hours
+browse e journal,layanan_perpustakaan_digital
+restoran kampus,canteen_food
+cara booking lab,lab_booking
+digital library access,facility_hours
+sks yang telah terpenuhi,sks_dan_ipk
+lokasi kantin,canteen_food
+zona bus,bus_schedule
+physiotherapy kampus,health_services
+bus,bus_schedule
+krs sistem,krs_dan_kartu_rencana_studi
+kantin buka jam berapa,canteen_food
+sks yang sudah diambil,sks_dan_ipk
+parkir visitor,parking_info
+kalender universitas,kalender_akademik
+kantin dekat perpustakaan,canteen_food
+sks yang sudah selesai diambil,sks_dan_ipk
+parkir langganan,parking_info
+rute,bus_schedule
+sks yang telah dipenuhi,sks_dan_ipk
+jadwal kuliah ekonomi,jadwal_kuliah
+cari jurnal elektronik,layanan_perpustakaan_digital
+kost lama,asrama_mahasiswa
+download jurnal internet,layanan_perpustakaan_digital
+basket court,sport_facilities
+operational hours library,facility_hours
+jadwal penggunaan lab,lab_booking
+library opening hours,facility_hours
+tempat tinggal baru,asrama_mahasiswa
+akses disabilitas,facility_hours
+kopi kampus,canteen_food
+zona hening perpustakaan,facility_hours
+kantin fakultas teknik,canteen_food
+kalender kampus,kalender_akademik
+masa krs,krs_dan_kartu_rencana_studi
+kamar lama,asrama_mahasiswa
+bus tracker,bus_schedule
+angkutan kampus,bus_schedule
+makanan kampus,canteen_food
+kos mahasiswa,asrama_mahasiswa
+selamat pagi,greeting
+klaim asuransi kesehatan,health_services
+printing service hours,facility_hours
+browse jurnal online,layanan_perpustakaan_digital
+buat krs,krs_dan_kartu_rencana_studi
+jam perpustakaan hari sabtu,facility_hours
+cari jurnal internet,layanan_perpustakaan_digital
+dance studio,sport_facilities
+ubah jadwal kuliah,jadwal_kuliah
+kost kampus,asrama_mahasiswa
+kalender studi,kalender_akademik
+hello,greeting
+kantin indonesian food,canteen_food
+dokter kampus,health_services
+emergency medical campus,health_services
+bus gps,bus_schedule
+cara daftar asrama,asrama_mahasiswa
+penginapan untuk mahasiswa,asrama_mahasiswa
+jam buka kantin,canteen_food
+sks pribadi,sks_dan_ipk
+intramural sports,sport_facilities
+akses koleksi khusus,facility_hours
+lab untuk ujian,lab_booking
+pendaftaran asrama,asrama_mahasiswa
+mie ayam kampus,canteen_food
+titik bus,bus_schedule
+bus berhenti,bus_schedule
+kantin 24 jam,canteen_food
+informasi asrama,asrama_mahasiswa
+kalender ganjil,kalender_akademik
+jadwal perkuliahan,jadwal_kuliah
+event promosi kesehatan,health_services
+booking ruang lab,lab_booking
+fasilitas gaming lab,lab_booking
+sks sendiri,sks_dan_ipk
+tenggat waktu krs,krs_dan_kartu_rencana_studi
+kapan perpustakaan tutup,facility_hours
+krs mobile,krs_dan_kartu_rencana_studi
+download jurnal digital,layanan_perpustakaan_digital
+lab open 24 jam,lab_booking
+lokasi bus,bus_schedule
+akses e resources,facility_hours
+registrasi asrama,asrama_mahasiswa
+bus tiba,bus_schedule
+asrama mahasiswa,asrama_mahasiswa
+hotline kesehatan mental,health_services
+booking lab komputer,lab_booking
+flu shot kampus,health_services
+tempat jajan kampus,canteen_food
+e journal,layanan_perpustakaan_digital
+lintasan,bus_schedule
+kantin ramah muslim,canteen_food
+sks yang telah selesai ditempuh,sks_dan_ipk
+bus datang,bus_schedule
+jadwal kuliah dan ruangan,jadwal_kuliah
+bus kapan,bus_schedule
+timetable bus,bus_schedule
+biaya kamar,asrama_mahasiswa
+bus online,bus_schedule
+asrama universitas,asrama_mahasiswa
+parkir gratis,parking_info
+opsi vegetarian kampus,canteen_food
+sks yang telah diambil,sks_dan_ipk
+akomodasi lama,asrama_mahasiswa
+jadwal kuliah malam,jadwal_kuliah
+krs website,krs_dan_kartu_rencana_studi
+biaya parkir,parking_info
+makan siang kampus,canteen_food
+akses jurnal digital,layanan_perpustakaan_digital
+tiket parkir,parking_info
+kost untuk mahasiswa,asrama_mahasiswa
+study calendar,kalender_akademik
+sks aku,sks_dan_ipk
+wassalam,greeting
+jurnal online,layanan_perpustakaan_digital
+shuttle zone,bus_schedule
+sks saya,sks_dan_ipk
+membaca jurnal elektronik,layanan_perpustakaan_digital
+hunian baru,asrama_mahasiswa
+lab data science,lab_booking
+akses jurnal online,layanan_perpustakaan_digital
+penginapan sekarang,asrama_mahasiswa
+parkir malam,parking_info
+penginapan baru,asrama_mahasiswa
+angkutan umum kampus,bus_schedule
+jadwal kuliah sabtu,jadwal_kuliah
+jadwal kuliah offline,jadwal_kuliah
+workshop kesehatan,health_services
+kelas fitness grup,sport_facilities
+akomodasi saat ini,asrama_mahasiswa
+kalender semester,kalender_akademik
+lab dengan software khusus,lab_booking
+kantin dengan wifi,canteen_food
+sks yang telah selesai diikuti,sks_dan_ipk
+proses krs,krs_dan_kartu_rencana_studi
+cari jurnal digital,layanan_perpustakaan_digital
+tahap krs,krs_dan_kartu_rencana_studi
+kost saat ini,asrama_mahasiswa
+good afternoon,greeting
+harga asrama,asrama_mahasiswa
+lab fakultas teknik,lab_booking
+intervensi krisis,health_services
+squash court,sport_facilities
+perpustakaan universitas jam berapa,facility_hours
+penginapan mahasiswa,asrama_mahasiswa
+tempat tinggal saat ini,asrama_mahasiswa
+parkir mobil,parking_info
+krs online,krs_dan_kartu_rencana_studi
+penginapan lama,asrama_mahasiswa
+kredit semester,sks_dan_ipk
+membaca jurnal online,layanan_perpustakaan_digital
+kantin kampus,canteen_food
+bus location,bus_schedule
+bantuan penelitian,facility_hours
+fitness center,sport_facilities
+pelatihan pertolongan pertama,health_services
+lab dengan plotter,lab_booking
+harga parkir,parking_info
+health center campus,health_services
+jurnal internet,layanan_perpustakaan_digital
+personal trainer kampus,sport_facilities
+perpustakaan 24 jam,facility_hours
+makanan halal kampus,canteen_food
+akses lab robotika,lab_booking
+hari buka perpustakaan,facility_hours
+pemberhentian bus,bus_schedule
+jam tutup perpustakaan,facility_hours
+kantin chinese food,canteen_food
+poliklinik universitas,health_services
+lab dengan printer 3d,lab_booking
+bus pagi,bus_schedule
+jam istirahat perpustakaan,facility_hours
+asrama kampus,asrama_mahasiswa
+krs,krs_dan_kartu_rencana_studi
+browse jurnal internet,layanan_perpustakaan_digital
+es teh kampus,canteen_food
+halte shuttle,bus_schedule
+obat generic murah,health_services
+jam buka perpustakaan,facility_hours
+area bus,bus_schedule
+klinik kesehatan seksual,health_services
+kalender kuliah,kalender_akademik
+selamat malam,greeting
+nomor ambulans darurat,health_services
+bakso kampus,canteen_food
+cara daftar pakai lab,lab_booking
+jadwal kuliah pagi,jadwal_kuliah
+membaca e journal,layanan_perpustakaan_digital
+klinik cedera olahraga,health_services
+jalur bus,bus_schedule
+halo,greeting
+konsultasi dokter kampus,health_services
+sate kampus,canteen_food
+counseling service,health_services
+akses jurnal internet,layanan_perpustakaan_digital
+jadwal maintenance perpustakaan,facility_hours
+schedule bus,bus_schedule
+ketersediaan lab,lab_booking
+jam pinjam antar perpustakaan,facility_hours
+kamar baru,asrama_mahasiswa
+lab dengan mac computer,lab_booking
+live bus,bus_schedule
+campus calendar,kalender_akademik
+lapangan voli,sport_facilities
+pelanggaran parkir,parking_info
+jadwal krs,krs_dan_kartu_rencana_studi
+ruang belajar jam buka,facility_hours
+bus tracking,bus_schedule
+perkenalkan,greeting
+bagaimana kabarmu,greeting
+akomodasi di kampus,asrama_mahasiswa
+tempat tinggal sekarang,asrama_mahasiswa
+nutritionist kampus,health_services
+panduan krs,krs_dan_kartu_rencana_studi
+hunian saat ini,asrama_mahasiswa
+parkir motor,parking_info
+kapan perpustakaan buka,facility_hours
+wr wb,greeting
+parkir kampus,parking_info
+jam buka ruang baca,facility_hours
+salam,greeting
+tarif kost,asrama_mahasiswa
+kapan kelas saya,jadwal_kuliah
+konsultasi pustakawan,facility_hours
+jadwal akademik,kalender_akademik
+akses e journal,layanan_perpustakaan_digital
+pos halte,bus_schedule
+kamar di kampus,asrama_mahasiswa
+booking lab jaringan,lab_booking
+education calendar,kalender_akademik
+jam buka perpustakaan pusat,facility_hours
+browse jurnal digital,layanan_perpustakaan_digital
+university calendar,kalender_akademik
+jadwal kuliah teknik,jadwal_kuliah
+search jurnal digital,layanan_perpustakaan_digital
+parkir sewa,parking_info
+perpustakaan buka hari minggu,facility_hours
+kantin dekat asrama,canteen_food
+kompetisi olahraga,sport_facilities
+psikolog kampus,health_services
+asrama institut,asrama_mahasiswa
+klinik gigi kampus,health_services
+menu kantin,canteen_food
+jumlah sks,sks_dan_ipk
+armada kampus,bus_schedule
+lab fakultas komputer,lab_booking
+lab multimedia,lab_booking
+kos di kampus,asrama_mahasiswa
+biaya kost,asrama_mahasiswa
+booking lab remote,lab_booking
+fasilitas olahraga kampus,sport_facilities
+tenis meja,sport_facilities
+kos baru,asrama_mahasiswa
+total sks,sks_dan_ipk
+medical checkup murah,health_services
+deadline krs,krs_dan_kartu_rencana_studi
+kolam renang kampus,sport_facilities
+student calendar,kalender_akademik
+sks yang sudah lulus,sks_dan_ipk
+ketersediaan vr lab,lab_booking
+info asrama,asrama_mahasiswa
+fasilitas x ray kampus,health_services
+online lab reservation,lab_booking
+jadwal shuttle,bus_schedule
+jam bus,bus_schedule
+lab booking system,lab_booking
+book lab online,lab_booking
+download jurnal elektronik,layanan_perpustakaan_digital
+lab programming,lab_booking
+kamar sekarang,asrama_mahasiswa
+bpjs kampus,health_services
+tarif parkir,parking_info
+kost di kampus,asrama_mahasiswa
+jadwal hari senin,jadwal_kuliah
+konseling stress,health_services
+layanan scan,facility_hours
+sks personal,sks_dan_ipk
+sks yang diambil,sks_dan_ipk
+kos lama,asrama_mahasiswa
+minuman kantin,canteen_food
+good evening,greeting
+cetak jadwal kuliah,jadwal_kuliah
+badminton court,sport_facilities
+selamat datang,greeting
+waktu krs,krs_dan_kartu_rencana_studi
+jadwal lab komputer,lab_booking
+jadwal kuliah,jadwal_kuliah
+bus berangkat,bus_schedule
+food delivery kampus,canteen_food
+fasilitas kesehatan mahasiswa,health_services
+gofood grab kampus,canteen_food
+tempat makan kampus,canteen_food
+search jurnal internet,layanan_perpustakaan_digital
+tempat bus,bus_schedule
+cara isi krs,krs_dan_kartu_rencana_studi
+bus sore,bus_schedule
+jadwal hari selasa,jadwal_kuliah
+kos untuk mahasiswa,asrama_mahasiswa
+course calendar,kalender_akademik
+periode krs,krs_dan_kartu_rencana_studi
+reservasi komputer lab,lab_booking
+snack vending machine,canteen_food
+kamar saat ini,asrama_mahasiswa
+running track,sport_facilities
+tarif asrama,asrama_mahasiswa
+kamar mahasiswa,asrama_mahasiswa
+jurnal digital,layanan_perpustakaan_digital
+hai,greeting
+bus jam berapa,bus_schedule
+download e journal,layanan_perpustakaan_digital
+daftar krs,krs_dan_kartu_rencana_studi
+martabak kampus,canteen_food
+salam kenal,greeting
+daftar asrama,asrama_mahasiswa
+sirkulasi buku jam berapa,facility_hours
+apa kabar,greeting
+jadwal perpustakaan,facility_hours
+parkir mahasiswa,parking_info
+study room booking,facility_hours
+tenggat krs,krs_dan_kartu_rencana_studi
+wall climbing,sport_facilities
+parkir dosen,parking_info
+lab cybersecurity,lab_booking
+aturan asrama,asrama_mahasiswa
+tempat tinggal lama,asrama_mahasiswa
+sks milikku,sks_dan_ipk
+krs aplikasi,krs_dan_kartu_rencana_studi
+kafe kampus,canteen_food
+jadwal libur perpustakaan,facility_hours
+sks yang telah lulus,sks_dan_ipk
+jadwal mata kuliah,jadwal_kuliah
+ambulans kampus,health_services
+slot lab komputer,lab_booking
+sks yang telah selesai diambil,sks_dan_ipk
+jurnal elektronik,layanan_perpustakaan_digital
+lecture calendar,kalender_akademik
+akomodasi untuk mahasiswa,asrama_mahasiswa
+sistem krs,krs_dan_kartu_rencana_studi
+peraturan asrama,asrama_mahasiswa
+sks yang sudah selesai,sks_dan_ipk
+konflik jadwal kuliah,jadwal_kuliah
+kalender krs,krs_dan_kartu_rencana_studi
+software lab komputer,lab_booking
+sarapan kampus,canteen_food
+tempat tinggal mahasiswa,asrama_mahasiswa
+tempat parkir,parking_info
+jadwal kuliah saya,jadwal_kuliah
+screening kesehatan gratis,health_services
+kalender pendidikan,kalender_akademik
+bus gratis kampus,bus_schedule
+hunian sekarang,asrama_mahasiswa
+sewa peralatan olahraga,sport_facilities
+jadwal ruangan,jadwal_kuliah
+lab dengan scanner,lab_booking
+asuransi kesehatan mahasiswa,health_services
+tracking,bus_schedule
+jam ruang arsip,facility_hours
+jam perpustakaan kampus,facility_hours
+bus mahasiswa,bus_schedule
+semester calendar,kalender_akademik
+satuan kredit semester,sks_dan_ipk
+lab dengan matlab,lab_booking
+bus siang,bus_schedule
+kesehatan mental kampus,health_services

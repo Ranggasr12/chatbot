@@ -1,0 +1,126 @@
+{
+  "summary": {
+    "total_intents": 14,
+    "total_patterns": 556,
+    "total_unique_words": 460,
+    "average_patterns_per_intent": 39.714285714285715,
+    "median_patterns_per_intent": 35.0,
+    "std_patterns_per_intent": 15.006801179220474,
+    "date_generated": "2026-01-05T13:01:49.967923"
+  },
+  "intent_ranking": [
+    {
+      "rank": 1,
+      "tag": "asrama_mahasiswa",
+      "patterns": 78,
+      "percentage": 14.028776978417264
+    },
+    {
+      "rank": 2,
+      "tag": "bus_schedule",
+      "patterns": 56,
+      "percentage": 10.071942446043165
+    },
+    {
+      "rank": 3,
+      "tag": "canteen_food",
+      "patterns": 51,
+      "percentage": 9.172661870503598
+    },
+    {
+      "rank": 4,
+      "tag": "facility_hours",
+      "patterns": 48,
+      "percentage": 8.633093525179856
+    },
+    {
+      "rank": 5,
+      "tag": "lab_booking",
+      "patterns": 47,
+      "percentage": 8.453237410071942
+    },
+    {
+      "rank": 6,
+      "tag": "health_services",
+      "patterns": 45,
+      "percentage": 8.093525179856115
+    },
+    {
+      "rank": 7,
+      "tag": "sks_dan_ipk",
+      "patterns": 35,
+      "percentage": 6.294964028776978
+    },
+    {
+      "rank": 8,
+      "tag": "layanan_perpustakaan_digital",
+      "patterns": 35,
+      "percentage": 6.294964028776978
+    },
+    {
+      "rank": 9,
+      "tag": "krs_dan_kartu_rencana_studi",
+      "patterns": 34,
+      "percentage": 6.115107913669065
+    },
+    {
+      "rank": 10,
+      "tag": "jadwal_kuliah",
+      "patterns": 31,
+      "percentage": 5.575539568345324
+    },
+    {
+      "rank": 11,
+      "tag": "sport_facilities",
+      "patterns": 25,
+      "percentage": 4.496402877697841
+    },
+    {
+      "rank": 12,
+      "tag": "kalender_akademik",
+      "patterns": 25,
+      "percentage": 4.496402877697841
+    },
+    {
+      "rank": 13,
+      "tag": "parking_info",
+      "patterns": 23,
+      "percentage": 4.136690647482014
+    },
+    {
+      "rank": 14,
+      "tag": "greeting",
+      "patterns": 23,
+      "percentage": 4.136690647482014
+    }
+  ],
+  "quality_metrics": {
+    "total_intents": 14,
+    "total_patterns": 556,
+    "total_responses": 14,
+    "avg_patterns_per_intent": 39.714285714285715,
+    "avg_responses_per_intent": 1.0,
+    "class_balance_score": 0.2948717948717949,
+    "data_quality_score": 0,
+    "avg_pattern_length": 16.577338129496404,
+    "avg_response_length": 536.8571428571429,
+    "unique_words": 460,
+    "processing_timestamp": "2026-01-05T13:01:49.903002"
+  },
+  "potential_issues": [
+    "Intent 'asrama_mahasiswa' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'bus_schedule' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'canteen_food' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'facility_hours' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'lab_booking' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'health_services' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'sks_dan_ipk' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'layanan_perpustakaan_digital' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'krs_dan_kartu_rencana_studi' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'jadwal_kuliah' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'sport_facilities' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'kalender_akademik' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'parking_info' hanya punya 1 response (minimum 2 disarankan)",
+    "Intent 'greeting' hanya punya 1 response (minimum 2 disarankan)"
+  ]
+}
