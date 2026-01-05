@@ -4,14 +4,14 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'AI Chatbot Akademik - Universitas Indonesia',
-  description: 'Chatbot cerdas untuk informasi akademik kampus',
+  title: 'Chatbot Akademik ',
+  description: 'Chatbot untuk informasi akademik kampus',
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id">
-      <body className={inter.className}>
+    <html lang="id" className="dark">
+      <body className={`${inter.className} bg-gray-950 text-gray-100`}>
         {children}
       </body>
     </html>
