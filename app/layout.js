@@ -1,4 +1,3 @@
-// app/layout.js
 import { Inter } from 'next/font/google'
 import './globals.css'
 
@@ -6,7 +5,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Chatbot Akademik',
-  description: 'Chatbot dengan ML untuk informasi kampus',
+  description: 'Chatbot untuk informasi akademik kampus',
 }
 
 export default function RootLayout({ children }) {

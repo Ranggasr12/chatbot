@@ -1,176 +1,9 @@
-// app/api/chat/route.js
-import { promises as fs } from 'fs';
-import path from 'path';
-
-// Konfigurasi
-const FLASK_API_URL = 'http://localhost:5000/api/chat';
-const FLASK_TIMEOUT = 5000;
-const USE_FALLBACK = true;
-
-// Helper untuk timeout fetch
-async function fetchWithTimeout(url, options, timeout = FLASK_TIMEOUT) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
-  
-  try {
-    const response = await fetch(url, {
-      ...options,
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
-    return response;
-  } catch (error) {
-    clearTimeout(timeoutId);
-    throw error;
-  }
-}
-
-// Load intents untuk fallback
-async function loadIntents() {
-  try {
-    const intentsPath = path.join(process.cwd(), 'models', 'intents.json');
-    const fileContent = await fs.readFile(intentsPath, 'utf-8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.log('⚠️ Cannot load intents:', error.message);
-    return { intents: [] };
-  }
-}
-
-// Simple keyword matching untuk fallback
-function getKeywordResponse(userMessage) {
-  const messageLower = userMessage.toLowerCase();
-  
-  const keywordMap = {
-    'jurusan': {
-      intent: 'informasi_jurusan',
-      responses: [
-        "Kami memiliki 12 fakultas dengan 50+ program studi: Teknik Informatika, Kedokteran, Manajemen, Hukum, Psikologi, Arsitektur, dan lainnya.",
-        "Program studi tersedia di berbagai fakultas termasuk Teknik, Kedokteran, Ekonomi, Hukum, dan Psikologi."
-      ]
-    },
-    'beasiswa': {
-      intent: 'beasiswa',
-      responses: [
-        "Tersedia beasiswa: Prestasi (IPK min 3.5), KIP-Kuliah (untuk ekonomi kurang mampu), dan Beasiswa Perusahaan. Pendaftaran setiap semester.",
-        "Beasiswa yang tersedia antara lain: Beasiswa Prestasi Akademik, Beasiswa KIP-Kuliah, dan Beasiswa dari mitra perusahaan."
-      ]
-    },
-    'jadwal': {
-      intent: 'jadwal_kuliah',
-      responses: [
-        "Jadwal kuliah dapat diakses melalui SIAKAD. Semester depan dimulai 2 September 2024.",
-        "Jadwal perkuliahan tersedia di portal akademik. Untuk info lengkap, cek SIAKAD kampus."
-      ]
-    },
-    'asrama': {
-      intent: 'asrama_mahasiswa',
-      responses: [
-        "Asrama mahasiswa tersedia dengan berbagai tipe kamar. Biaya mulai dari Rp 1.5 juta per semester.",
-        "Tersedia asrama dengan fasilitas lengkap. Pendaftaran dibuka 2 minggu sebelum semester dimulai."
-      ]
-    },
-    'perpustakaan': {
-      intent: 'facility_hours',
-      responses: [
-        "Perpustakaan buka Senin-Jumat 08.00-21.00, Sabtu 08.00-17.00, Minggu 09.00-15.00.",
-        "Jam operasional perpustakaan: Senin-Jumat 08.00-21.00, Sabtu 08.00-17.00, Minggu 09.00-15.00."
-      ]
-    },
-    'halo': {
-      intent: 'greeting',
-      responses: [
-        "Halo! 🤖 Saya chatbot akademik. Silakan tanyakan tentang jurusan, beasiswa, jadwal kuliah, atau informasi kampus lainnya.",
-        "Selamat datang! Saya siap membantu dengan informasi akademik dan fasilitas kampus."
-      ]
-    }
-  };
-  
-  for (const [keyword, data] of Object.entries(keywordMap)) {
-    if (messageLower.includes(keyword)) {
-      return {
-        intent: data.intent,
-        response: data.responses[Math.floor(Math.random() * data.responses.length)],
-        confidence: 0.7
-      };
-    }
-  }
-  
-  return null;
-}
-
-// GET endpoint untuk info
-export async function GET() {
-  try {
-    // Cek koneksi ke Flask
-    let flaskStatus = 'unknown';
-    let flaskInfo = null;
-    
-    try {
-      const response = await fetchWithTimeout(
-        'http://localhost:5000/api/health',
-        { method: 'GET' },
-        3000
-      );
-      
-      if (response.ok) {
-        flaskInfo = await response.json();
-        flaskStatus = flaskInfo.success ? 'connected' : 'error';
-      } else {
-        flaskStatus = 'error';
-      }
-    } catch (error) {
-      flaskStatus = 'disconnected';
-    }
-    
-    // Load intents info
-    const intentsData = await loadIntents();
-    
-    return Response.json({
-      success: true,
-      service: 'Next.js Chatbot Proxy',
-      flask: {
-        url: FLASK_API_URL,
-        status: flaskStatus,
-        info: flaskInfo
-      },
-      intents: {
-        count: intentsData.intents?.length || 0,
-        loaded: intentsData.intents?.length > 0
-      },
-      endpoints: {
-        'POST /api/chat': 'Send message (proxies to Flask)',
-        'GET /api/chat': 'This info endpoint'
-      }
-    });
-    
-  } catch (error) {
-    return Response.json({
-      success: false,
-      error: error.message
-    }, { status: 500 });
-  }
-}
-
-// POST endpoint untuk chat
+// app/api/chat/route.js - IMPROVED VERSION
 export async function POST(request) {
   try {
-    // Parse request
-    let body;
-    try {
-      body = await request.json();
-    } catch (error) {
-      return Response.json({
-        success: false,
-        error: 'Invalid JSON',
-        response: 'Format pesan tidak valid.'
-      }, { status: 400 });
-    }
+    const { message } = await request.json();
     
-    const { message } = body;
-    
-    // Validasi
-    if (!message || typeof message !== 'string' || message.trim() === '') {
+    if (!message || message.trim() === '') {
       return Response.json({
         success: false,
         error: 'Message required',
@@ -178,108 +11,154 @@ export async function POST(request) {
       }, { status: 400 });
     }
     
-    const userMessage = message.trim();
-    console.log(`📤 Next.js received: "${userMessage}"`);
+    const userMessage = message.toLowerCase().trim();
+    console.log('Chat received:', userMessage);
     
-    // 1. Coba hubungi Flask API
-    let flaskResponse = null;
-    let flaskError = null;
+    // SIMPLE RULE-BASED RESPONSES WITH CONVERSATION FLOW
+    const responses = {
+      'informasi_jurusan': [
+        "🎓 **Fakultas & Jurusan:**\n• Teknik: Informatika, Sipil, Elektro, Mesin\n• Kedokteran: Dokter, Keperawatan, Farmasi\n• Ekonomi: Manajemen, Akuntansi, Bisnis Digital\n• Hukum: Ilmu Hukum, Hukum Internasional\n• Dan 8 fakultas lainnya dengan 50+ program studi!",
+        "📚 **Program Studi Tersedia:**\n1. Teknik Informatika (S1)\n2. Kedokteran (S1)\n3. Manajemen (S1)\n4. Ilmu Hukum (S1)\n5. Psikologi (S1)\n6. Arsitektur (S1)\n7. Akuntansi (S1)\n8. Farmasi (S1)\n\nInfo lengkap: akademik.kampus.ac.id"
+      ],
+      
+      'beasiswa': [
+        "💰 **Jenis Beasiswa:**\n1. Prestasi (IPK ≥ 3.5) - Bebas UKT\n2. KIP-Kuliah - Untuk ekonomi kurang mampu\n3. Perusahaan (Telkom, Mandiri) - Tuition + magang\n4. Pemerintah Daerah - Beragam program\n\nPendaftaran: beasiswa.kampus.ac.id",
+        "🏆 **Beasiswa Prestasi:**\n• Syarat: IPK min 3.5, aktif organisasi\n• Benefit: Bebas UKT + tunjangan bulanan\n• Periode: Setiap semester\n• Pendaftaran: Portal beasiswa kampus"
+      ],
+      
+      'asrama_mahasiswa': [
+        "🏠 **Asrama Mahasiswa:**\n• Biaya: Rp 1.5-4.5 juta/semester\n• Tipe: Standard, Premium, VIP\n• Fasilitas: AC, WiFi, kamar mandi dalam\n• Lokasi: Dalam kampus, 24/7 security\n• Pendaftaran: portal.kampus.ac.id/asrama",
+        "🛏️ **Tipe Kamar:**\n1. Standard (3x3m): Rp 1.5-2.5 juta\n2. Premium (4x4m): Rp 2.5-3.5 juta\n3. VIP (4x4m + kitchenette): Rp 3.5-4.5 juta\n\nFasilitas: laundry, wifi, ruang belajar, kantin"
+      ],
+      
+      'bus_schedule': [
+        "🚌 **Shuttle Bus Kampus:**\n• Jam: 06.30-21.00 (Senin-Jumat)\n• Rute: 3 jalur (Merah, Biru, Hijau)\n• Frekuensi: 15-20 menit sekali\n• Gratis untuk mahasiswa aktif\n• Aplikasi: Campus Transport (live tracking)",
+        "⏰ **Jadwal Operasional:**\n• Weekdays: 06.30 - 21.00\n• Sabtu: 07.00 - 18.00\n• Minggu: 08.00 - 16.00\n• Titik pemberhentian: 15 titik strategis"
+      ],
+      
+      'greeting': [
+        "🤖 **Halo! Saya Chatbot Akademik**\n\nSaya bisa membantu dengan:\n• Informasi jurusan & fakultas\n• Beasiswa & pendanaan\n• Asrama mahasiswa\n• Jadwal shuttle bus\n\nApa yang ingin Anda tanyakan?",
+        "👋 **Selamat datang!**\n\nTanyakan tentang:\n🎓 Jurusan & program studi\n💰 Beasiswa & biaya kuliah\n🏠 Asrama & tempat tinggal\n🚌 Transportasi kampus\n\nSaya siap membantu!"
+      ],
+      
+      'tidak_mengerti': [
+        "Maaf, saya belum memahami. Bisa tolong diperjelas?",
+        "Saya bisa membantu dengan informasi tentang: jurusan, beasiswa, asrama, shuttle bus, dll.",
+        "Coba tanyakan hal spesifik seperti: 'beasiswa untuk mahasiswa baru' atau 'jadwal shuttle bus'"
+      ]
+    };
     
-    try {
-      console.log(`🔄 Proxying to Flask: ${FLASK_API_URL}`);
-      
-      const response = await fetchWithTimeout(
-        FLASK_API_URL,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({ message: userMessage })
-        }
-      );
-      
-      if (response.ok) {
-        flaskResponse = await response.json();
-        console.log(`✅ Flask response success:`, flaskResponse.success);
-      } else {
-        flaskError = `HTTP ${response.status}`;
-      }
-    } catch (error) {
-      flaskError = error.name === 'AbortError' 
-        ? 'Flask timeout' 
-        : error.message;
-      console.log(`❌ Flask error: ${flaskError}`);
-    }
+    // Check for conversation flow keywords
+    let expecting_followup = false;
+    let current_topic = null;
     
-    // 2. Jika Flask merespons dengan sukses
-    if (flaskResponse && flaskResponse.success) {
-      return Response.json({
-        ...flaskResponse,
-        source: 'flask_api',
-        proxied: true
-      });
-    }
-    
-    // 3. Fallback ke keyword matching
-    if (USE_FALLBACK) {
-      console.log(`🔄 Using Next.js keyword fallback`);
-      
-      // Coba keyword matching sederhana
-      const keywordResponse = getKeywordResponse(userMessage);
-      
-      if (keywordResponse) {
-        return Response.json({
-          success: true,
-          intent: keywordResponse.intent,
-          confidence: keywordResponse.confidence,
-          response: keywordResponse.response,
-          source: 'nextjs_keyword_fallback',
-          flask_error: flaskError
-        });
-      }
-      
-      // Default fallback response
-      const defaultResponses = [
-        "Halo! Saya chatbot akademik. Silakan tanyakan tentang jurusan, beasiswa, atau fasilitas kampus.",
-        "Saya bisa membantu dengan informasi akademik. Coba tanyakan tentang jadwal kuliah atau asrama mahasiswa.",
-        "Maaf, saya belum memahami pertanyaan Anda. Coba tanyakan tentang: jurusan, beasiswa, jadwal kuliah, atau fasilitas kampus."
-      ];
-      
-      const randomDefault = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-      
+    // Conversation flow detection
+    if (userMessage.includes('biaya') || userMessage.includes('harga')) {
       return Response.json({
         success: true,
-        intent: 'greeting',
-        confidence: 0.3,
-        response: randomDefault,
-        source: 'nextjs_default_fallback',
-        flask_error: flaskError
+        intent: 'asrama_mahasiswa',
+        confidence: 0.95,
+        response: "💰 **Detail Biaya Asrama (per semester):**\n\n1. **Standard Room** (3x3m)\n   • Biaya: Rp 1.5-2 juta\n   • Fasilitas: AC, WiFi area umum, shared bathroom\n\n2. **Premium Room** (4x4m)\n   • Biaya: Rp 2.5-3 juta\n   • Fasilitas: AC, WiFi pribadi, bathroom dalam, water heater\n\n3. **VIP Room** (4x4m + kitchenette)\n   • Biaya: Rp 3.5-4.5 juta\n   • Fasilitas: Semua fasilitas premium + cleaning service 2x/minggu\n\nIngin tahu tentang fasilitas lengkap atau cara pendaftaran?",
+        method: 'conversation_flow',
+        model_available: false,
+        intents_count: Object.keys(responses).length,
+        expecting_followup: true,
+        current_topic: 'asrama_mahasiswa',
+        timestamp: new Date().toISOString()
       });
     }
     
-    // 4. Jika fallback tidak aktif, return error
+    if (userMessage.includes('fasilitas') || userMessage.includes('fasiliti')) {
+      return Response.json({
+        success: true,
+        intent: 'asrama_mahasiswa',
+        confidence: 0.95,
+        response: "🛏️ **Fasilitas Lengkap Asrama:**\n\n✅ **Semua Kamar:**\n• AC\n• Kasur, bantal, guling\n• Meja belajar dan kursi\n• Lemari pakaian\n• Lampu belajar\n\n✅ **Fasilitas Umum:**\n• WiFi high-speed\n• Laundry service\n• Dapur bersama\n• Ruang belajar 24 jam\n• Kantin\n• Security 24/7\n• CCTV area umum\n\n✅ **Premium & VIP Tambahan:**\n• Bathroom dalam\n• Water heater\n• Cleaning service\n• Mini refrigerator (VIP)\n\nIngin tahu biaya atau cara pendaftaran?",
+        method: 'conversation_flow',
+        model_available: false,
+        intents_count: Object.keys(responses).length,
+        expecting_followup: true,
+        current_topic: 'asrama_mahasiswa',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    // Simple intent detection
+    let intent = 'tidak_mengerti';
+    let confidence = 0.3;
+    
+    if (userMessage.includes('jurusan') || userMessage.includes('prodi') || userMessage.includes('fakultas')) {
+      intent = 'informasi_jurusan';
+      confidence = 0.9;
+      expecting_followup = true;
+      current_topic = 'informasi_jurusan';
+    } else if (userMessage.includes('beasiswa') || userMessage.includes('dana') || userMessage.includes('biaya kuliah')) {
+      intent = 'beasiswa';
+      confidence = 0.9;
+      expecting_followup = true;
+      current_topic = 'beasiswa';
+    } else if (userMessage.includes('asrama') || userMessage.includes('kost') || userMessage.includes('kamar')) {
+      intent = 'asrama_mahasiswa';
+      confidence = 0.9;
+      expecting_followup = true;
+      current_topic = 'asrama_mahasiswa';
+    } else if (userMessage.includes('shuttle') || userMessage.includes('bus') || userMessage.includes('angkutan')) {
+      intent = 'bus_schedule';
+      confidence = 0.9;
+      expecting_followup = true;
+      current_topic = 'bus_schedule';
+    } else if (userMessage.includes('halo') || userMessage.includes('hai') || userMessage.includes('hello')) {
+      intent = 'greeting';
+      confidence = 0.95;
+    }
+    
+    // Check for exit keywords
+    if (userMessage.includes('keluar') || userMessage.includes('selesai') || userMessage.includes('cukup')) {
+      expecting_followup = false;
+      current_topic = null;
+    }
+    
+    const responseList = responses[intent];
+    const response = responseList[Math.floor(Math.random() * responseList.length)];
+    
     return Response.json({
-      success: false,
-      error: flaskError || 'Flask API tidak tersedia',
-      response: 'Maaf, layanan chatbot sedang dalam pemeliharaan.',
-      source: 'nextjs_error'
-    }, { status: 503 });
+      success: true,
+      intent: intent,
+      confidence: confidence,
+      response: response,
+      method: 'rule_based',
+      model_available: false,
+      intents_count: Object.keys(responses).length,
+      expecting_followup: expecting_followup,
+      current_topic: current_topic,
+      timestamp: new Date().toISOString()
+    });
     
   } catch (error) {
-    console.error('❌ Next.js API error:', error);
-    
+    console.error('API Error:', error);
     return Response.json({
       success: false,
       error: error.message,
-      response: 'Terjadi kesalahan pada sistem.',
-      source: 'error'
+      response: 'Terjadi kesalahan pada sistem.'
     }, { status: 500 });
   }
 }
 
-// OPTIONS untuk CORS
+// Health check endpoint
+export async function GET() {
+  return Response.json({
+    success: true,
+    service: 'Chatbot Akademik API',
+    status: 'healthy',
+    model_loaded: false,
+    intents_loaded: 6,
+    environment: process.env.NODE_ENV || 'development',
+    timestamp: new Date().toISOString(),
+    features: ['rule-based', 'conversation-flow', 'multi-topic']
+  });
+}
+
+// Handle OPTIONS for CORS
 export async function OPTIONS() {
   return new Response(null, {
     status: 200,
