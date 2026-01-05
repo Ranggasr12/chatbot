@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   
-  // Nonaktifkan ESLint dan TypeScript saat build
+  // Untuk Vercel, hapus atau comment output: 'export'
+  // output: 'standalone', // HAPUS BARIS INI
+  
+  // Nonaktifkan ESLint dan TypeScript checking
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -10,11 +13,19 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Untuk Netlify
-  output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
+  // CORS untuk API
+  async headers() {
+    return [
+      {
+        source: "/api/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET,POST,PUT,DELETE,OPTIONS" },
+          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
+        ]
+      }
+    ]
   }
 }
 
