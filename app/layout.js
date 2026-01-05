@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'AI Chatbot Akademik',
-  description: 'Chatbot cerdas untuk informasi kampus',
+  title: 'AI Chatbot - Vercel',
+  description: 'Chatbot cerdas dengan API routes di Vercel',
 }
 
 export default function RootLayout({ children }) {

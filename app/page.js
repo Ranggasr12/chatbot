@@ -2,11 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react'
 
+const API_URL = '/api/chat'
+
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: '🤖 **Halo! Saya AI Chatbot Interaktif**\n\nSiap membantu informasi kampus dengan percakapan alami! 🎯\n\nPilih topik di bawah atau tanyakan langsung!',
+      text: '🤖 **Selamat Datang di AI Chatbot!**\n\nSaya siap membantu informasi tentang:\n\n🎓 Jurusan & Fakultas\n💰 Beasiswa & Biaya\n🏠 Asrama & Tempat Tinggal\n🚌 Transportasi Kampus\n📚 Fasilitas Kampus\n\nPilih topik di bawah atau tanyakan langsung!',
       sender: 'bot',
       timestamp: new Date().toISOString()
     }
@@ -14,17 +16,17 @@ export default function Home() {
   
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [currentTopic, setCurrentTopic] = useState(null)
+  const [apiStatus, setApiStatus] = useState('online')
   const messagesEndRef = useRef(null)
 
   // Quick starters
   const quickStarters = [
-    { icon: '🎓', text: 'Jurusan', value: 'Saya mau tanya tentang jurusan' },
-    { icon: '💰', text: 'Beasiswa', value: 'Info beasiswa untuk mahasiswa' },
-    { icon: '🏠', text: 'Asrama', value: 'Asrama dan tempat tinggal' },
-    { icon: '🚌', text: 'Transportasi', value: 'Transportasi kampus' },
-    { icon: '📚', text: 'Fasilitas', value: 'Fasilitas kampus apa saja?' },
-    { icon: '🔄', text: 'Reset', value: 'Kembali ke menu utama' }
+    { text: '🎓 Jurusan', value: 'Jurusan apa saja yang ada?' },
+    { text: '💰 Beasiswa', value: 'Info beasiswa untuk mahasiswa' },
+    { text: '🏠 Asrama', value: 'Info asrama dan biayanya' },
+    { text: '🚌 Transportasi', value: 'Jadwal shuttle bus kampus' },
+    { text: '📚 Fasilitas', value: 'Fasilitas apa yang tersedia?' },
+    { text: '🤖 Bantuan', value: 'Halo, bisa bantu saya?' }
   ]
 
   // Auto scroll
@@ -32,97 +34,23 @@ export default function Home() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  // Client-side AI response
-  const getAIResponse = (message, currentTopic) => {
-    const msg = message.toLowerCase().trim()
-    
-    // Handle exit conversation
-    if (msg.includes('keluar') || msg.includes('kembali') || msg.includes('menu') || msg.includes('reset')) {
-      setCurrentTopic(null)
-      return {
-        intent: 'greeting',
-        response: '🔄 **Kembali ke Menu Utama**\n\nSilakan pilih topik yang ingin Anda tanyakan! 😊',
-        quickOptions: ['jurusan', 'beasiswa', 'asrama', 'transportasi', 'fasilitas']
+  // Check API status on mount
+  useEffect(() => {
+    checkApiStatus()
+  }, [])
+
+  const checkApiStatus = async () => {
+    try {
+      const response = await fetch(API_URL)
+      if (response.ok) {
+        setApiStatus('online')
       }
-    }
-    
-    // Jurusan flow
-    if (msg.includes('jurusan') || msg.includes('fakultas') || currentTopic === 'jurusan') {
-      if (msg.includes('teknik')) {
-        return {
-          intent: 'jurusan_teknik',
-          response: `🔧 **Fakultas Teknik**\n\n• Teknik Informatika (A)\n• Teknik Elektro (A)\n• Teknik Sipil (A)\n• Teknik Mesin (B)\n\n💡 Tanya: "biaya", "kurikulum", atau "fakultas lain"`,
-          quickOptions: ['biaya', 'kurikulum', 'kedokteran', 'ekonomi', 'menu']
-        }
-      }
-      return {
-        intent: 'jurusan',
-        response: `🎓 **Pilih Fakultas:**\n\n🔧 Teknik\n🏥 Kedokteran\n💼 Ekonomi\n⚖️ Hukum\n🧠 Psikologi\n\nTanyakan: "jurusan teknik", "fakultas kedokteran", dll.`,
-        quickOptions: ['teknik', 'kedokteran', 'ekonomi', 'hukum', 'semua']
-      }
-    }
-    
-    // Beasiswa flow
-    if (msg.includes('beasiswa') || msg.includes('dana') || currentTopic === 'beasiswa') {
-      if (msg.includes('prestasi') || msg.includes('ipk')) {
-        return {
-          intent: 'beasiswa_prestasi',
-          response: `🏆 **Beasiswa Prestasi**\n\n• IPK ≥ 3.5\n• Bebas UKT 100%\n• Rp 1 juta/bulan\n• Pendaftaran: Jan-Feb\n\n💡 Tanya: "dokumen", "cara daftar", "beasiswa lain"`,
-          quickOptions: ['dokumen', 'daftar', 'kip', 'perusahaan', 'menu']
-        }
-      }
-      return {
-        intent: 'beasiswa',
-        response: `💰 **Jenis Beasiswa:**\n\n🏆 Prestasi Akademik\n💙 KIP-Kuliah\n🏢 Perusahaan\n🏛️ Pemerintah\n\nTanyakan: "beasiswa prestasi", "KIP", dll.`,
-        quickOptions: ['prestasi', 'kip', 'perusahaan', 'pemerintah', 'semua']
-      }
-    }
-    
-    // Asrama flow
-    if (msg.includes('asrama') || msg.includes('kost') || currentTopic === 'asrama') {
-      return {
-        intent: 'asrama',
-        response: `🏠 **Asrama Mahasiswa**\n\n• Standard: Rp 1.8 juta/smt\n• Premium: Rp 2.8 juta/smt\n• VIP: Rp 3.8 juta/smt\n\nFasilitas: AC, WiFi, laundry\n\n💡 Tanya: "standard", "premium", "fasilitas", "daftar"`,
-        quickOptions: ['standard', 'premium', 'fasilitas', 'daftar', 'menu']
-      }
-    }
-    
-    // Transportasi flow
-    if (msg.includes('bus') || msg.includes('shuttle') || currentTopic === 'transportasi') {
-      return {
-        intent: 'transportasi',
-        response: `🚌 **Transportasi Kampus**\n\n⏰ Jadwal: 06.30-21.00\n🚌 Bus: setiap 15-30 menit\n🗺️ Rute: Kampus ↔ Stasiun ↔ Mall\n📱 App: Campus Transport\n\n💡 Tanya: "jadwal", "rute", "aplikasi", "parkir"`,
-        quickOptions: ['jadwal', 'rute', 'aplikasi', 'parkir', 'menu']
-      }
-    }
-    
-    // Fasilitas
-    if (msg.includes('fasilitas') || msg.includes('lab') || msg.includes('perpustakaan')) {
-      return {
-        intent: 'fasilitas',
-        response: `🏛️ **Fasilitas Kampus**\n\n📚 Perpustakaan 24/7\n💻 Lab Komputer\n🏋️‍♂️ Gym & Olahraga\n🍽️ Kantin & Kafe\n🏥 Klinik Kesehatan\n\nTersedia untuk semua mahasiswa!`,
-        quickOptions: ['perpustakaan', 'lab', 'olahraga', 'kantin', 'menu']
-      }
-    }
-    
-    // Greeting
-    if (msg.includes('halo') || msg.includes('hi') || msg.includes('hai')) {
-      return {
-        intent: 'greeting',
-        response: `🤖 **Halo! Selamat datang!**\n\nSaya AI Chatbot siap membantu dengan percakapan interaktif.\n\n💡 Mulai dengan: "jurusan", "beasiswa", "asrama", "transportasi", atau "fasilitas"`,
-        quickOptions: ['jurusan', 'beasiswa', 'asrama', 'transportasi', 'fasilitas']
-      }
-    }
-    
-    // Default
-    return {
-      intent: 'general',
-      response: `🤔 **Mari eksplor topik berikut:**\n\n1. "Jurusan apa saja?"\n2. "Beasiswa untuk saya"\n3. "Asrama yang nyaman"\n4. "Jadwal shuttle bus"\n5. "Fasilitas kampus"\n\nPilih salah satu atau ketik langsung! 😊`,
-      quickOptions: ['jurusan', 'beasiswa', 'asrama', 'transportasi', 'fasilitas']
+    } catch (error) {
+      setApiStatus('offline')
     }
   }
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!input.trim() || isLoading) return
 
     // Add user message
@@ -138,27 +66,55 @@ export default function Home() {
     setInput('')
     setIsLoading(true)
 
-    // Simulate AI processing
-    setTimeout(() => {
-      const aiResponse = getAIResponse(userInput, currentTopic)
-      
-      // Update current topic
-      if (aiResponse.intent && !aiResponse.intent.includes('greeting')) {
-        setCurrentTopic(aiResponse.intent.split('_')[0])
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userInput }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
+
+      const data = await response.json()
       
-      const botMessage = {
+      if (data.success) {
+        const botMessage = {
+          id: messages.length + 2,
+          text: data.response,
+          sender: 'bot',
+          intent: data.intent,
+          timestamp: new Date().toISOString()
+        }
+        
+        setMessages(prev => [...prev, botMessage])
+        setApiStatus('online')
+      } else {
+        const errorMessage = {
+          id: messages.length + 2,
+          text: `❌ Error: ${data.response}`,
+          sender: 'bot',
+          timestamp: new Date().toISOString()
+        }
+        setMessages(prev => [...prev, errorMessage])
+      }
+    } catch (error) {
+      console.error('Network error:', error)
+      
+      const errorMessage = {
         id: messages.length + 2,
-        text: aiResponse.response,
+        text: '🌐 **Network Error**\n\nTidak dapat terhubung ke server. Silakan refresh halaman.',
         sender: 'bot',
-        intent: aiResponse.intent,
-        timestamp: new Date().toISOString(),
-        quickOptions: aiResponse.quickOptions
+        timestamp: new Date().toISOString()
       }
-      
-      setMessages(prev => [...prev, botMessage])
+      setMessages(prev => [...prev, errorMessage])
+      setApiStatus('offline')
+    } finally {
       setIsLoading(false)
-    }, 800)
+    }
   }
 
   const handleKeyPress = (e) => {
@@ -170,30 +126,27 @@ export default function Home() {
 
   const handleQuickStarter = (value) => {
     setInput(value)
-    setTimeout(() => sendMessage(), 100)
-  }
-
-  const handleQuickOption = (option) => {
-    setInput(option)
-    setTimeout(() => sendMessage(), 100)
+    setTimeout(() => {
+      sendMessage()
+    }, 100)
   }
 
   const clearChat = () => {
-    if (window.confirm('Reset percakapan?')) {
+    if (window.confirm('Hapus semua percakapan?')) {
       setMessages([
         {
           id: 1,
-          text: '🔄 **Percakapan direset!**\n\nSilakan mulai percakapan baru.',
+          text: '🔄 **Percakapan telah direset!**\n\nSilakan tanyakan apa yang Anda butuhkan.',
           sender: 'bot',
           timestamp: new Date().toISOString()
         }
       ])
-      setCurrentTopic(null)
     }
   }
 
   const formatTime = (timestamp) => {
-    return new Date(timestamp).toLocaleTimeString('id-ID', { 
+    const date = new Date(timestamp)
+    return date.toLocaleTimeString('id-ID', { 
       hour: '2-digit', 
       minute: '2-digit' 
     })
@@ -211,25 +164,32 @@ export default function Home() {
                 <div className="text-2xl text-white">🤖</div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-800">AI Chatbot Interaktif</h1>
-                <p className="text-gray-600">Percakapan Cerdas • Client-Side</p>
+                <h1 className="text-2xl font-bold text-gray-800">AI Chatbot Vercel</h1>
+                <p className="text-gray-600">Deploy dengan Vercel • API Routes</p>
               </div>
             </div>
             
-            <button
-              onClick={clearChat}
-              className="p-2 bg-red-100 hover:bg-red-200 rounded-lg transition"
-              title="Clear chat"
-            >
-              <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </button>
+            <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${apiStatus === 'online' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                <div className={`w-2 h-2 rounded-full ${apiStatus === 'online' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                <span className="text-sm font-medium">{apiStatus === 'online' ? 'Online' : 'Offline'}</span>
+              </div>
+              
+              <button
+                onClick={clearChat}
+                className="p-2 bg-red-100 hover:bg-red-200 rounded-lg transition"
+                title="Clear chat"
+              >
+                <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
           </div>
           
           {/* Quick Starters */}
           <div>
-            <p className="text-sm text-gray-500 mb-3 font-medium">🚀 Mulai percakapan:</p>
+            <p className="text-sm text-gray-500 mb-3 font-medium">🚀 Mulai percakapan cepat:</p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
               {quickStarters.map((starter, index) => (
                 <button
@@ -238,31 +198,12 @@ export default function Home() {
                   disabled={isLoading}
                   className="flex flex-col items-center p-3 bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50 rounded-lg transition-all disabled:opacity-50 text-center"
                 >
-                  <div className="text-2xl mb-1">{starter.icon}</div>
-                  <div className="text-sm font-medium text-gray-700">{starter.text}</div>
-                  <div className="text-xs text-gray-500 mt-1">Click to send</div>
+                  <div className="text-lg mb-1">{starter.text.split(' ')[0]}</div>
+                  <div className="text-xs text-gray-600">Click to send</div>
                 </button>
               ))}
             </div>
           </div>
-          
-          {/* Current Topic */}
-          {currentTopic && (
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-blue-700">
-                  Topik saat ini: {currentTopic.charAt(0).toUpperCase() + currentTopic.slice(1)}
-                </span>
-                <button
-                  onClick={() => handleQuickStarter('keluar')}
-                  className="ml-auto text-xs bg-white hover:bg-gray-100 px-2 py-1 rounded border"
-                >
-                  Ganti topik
-                </button>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Chat Container */}
@@ -295,11 +236,6 @@ export default function Home() {
                       </div>
                       <div className="text-xs opacity-75">
                         {msg.sender === 'user' ? 'Anda' : 'AI Assistant'} • {formatTime(msg.timestamp)}
-                        {msg.intent && (
-                          <span className="ml-2 px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs">
-                            #{msg.intent}
-                          </span>
-                        )}
                       </div>
                     </div>
                     
@@ -307,23 +243,6 @@ export default function Home() {
                     <div className="whitespace-pre-line leading-relaxed">
                       {msg.text}
                     </div>
-                    
-                    {/* Quick Options */}
-                    {msg.quickOptions && (
-                      <div className="mt-4 pt-4 border-t border-gray-200">
-                        <div className="flex flex-wrap gap-2">
-                          {msg.quickOptions.map((option, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => handleQuickOption(option)}
-                              className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm transition-colors border border-gray-300"
-                            >
-                              {option}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
               ))}
@@ -334,13 +253,11 @@ export default function Home() {
                   <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-none p-4 shadow-sm">
                     <div className="flex items-center gap-3">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-75"></div>
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-150"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-75"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150"></div>
                       </div>
-                      <span className="text-sm text-gray-600">
-                        {currentTopic ? `Memproses ${currentTopic}...` : 'Menganalisis...'}
-                      </span>
+                      <span className="text-sm text-gray-600">AI sedang memproses...</span>
                     </div>
                   </div>
                 </div>
@@ -358,18 +275,14 @@ export default function Home() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyPress}
-                  placeholder={currentTopic ? `Lanjutkan tentang ${currentTopic}... (atau ketik "keluar" untuk ganti topik)` : "Ketik pertanyaan Anda..."}
+                  placeholder="Ketik pertanyaan Anda di sini..."
                   className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition"
                   rows="2"
                   disabled={isLoading}
                 />
                 <div className="flex justify-between items-center mt-2">
                   <div className="text-xs text-gray-500">
-                    {currentTopic ? (
-                      <span className="text-blue-600">💬 Dalam percakapan: {currentTopic}</span>
-                    ) : (
-                      'Tekan Enter untuk mengirim'
-                    )}
+                    Tekan Enter untuk mengirim, Shift+Enter untuk baris baru
                   </div>
                   <div className={`text-xs ${input.length > 450 ? 'text-red-500' : 'text-gray-400'}`}>
                     {input.length}/500
@@ -397,14 +310,14 @@ export default function Home() {
             
             {/* Tips */}
             <div className="mt-4 text-center text-sm text-gray-500">
-              <p>💡 <strong>Tips:</strong> AI akan mengingat topik. Tanyakan detail lanjutan atau ketik "keluar" untuk ganti topik.</p>
+              <p>💡 Contoh: "jurusan teknik", "beasiswa prestasi", "biaya asrama", "jadwal shuttle"</p>
             </div>
           </div>
         </div>
         
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>© 2024 AI Chatbot • Client-Side AI • Deploy di Netlify</p>
+          <p>© 2024 AI Chatbot • Deploy dengan Vercel • Next.js 14</p>
         </div>
       </div>
     </div>

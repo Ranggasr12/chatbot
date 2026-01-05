@@ -9,15 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.0.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
     "postcss": "^10.4.16",
-    "tailwindcss": "^3.4.0",
-    "eslint": "8",
-    "eslint-config-next": "14.0.4"
-  }
+    "tailwindcss": "^3.4.0"
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "next.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ranggasr12/chatbot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ranggasr12/chatbot/issues"
+  },
+  "homepage": "https://github.com/Ranggasr12/chatbot#readme"
 }
